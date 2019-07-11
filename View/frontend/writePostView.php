@@ -13,7 +13,10 @@
       </div>
       <div class="form-group">
         <label for="inputContent"></label>
-        <textarea id="inputContent" name="inputContent"> </textarea>
+        <!-- <textarea id="inputContent" name="inputContent"> </textarea> -->
+        <textarea class="tinymce"  name="inputContent" cols="50" rows="15">This is some content that will be editable with TinyMCE.</textarea>
+
+
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
@@ -22,7 +25,13 @@
 
 </div>
 <!-- Init  Tiny Drive -->
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'textarea' });</script>
+ 
  <?php $content = ob_get_clean(); ?>
 <?php require('View/frontend/template.php'); ?>
+<script type="text/javascript">
+  tinymce.init({
+    mode : "textareas",
+    plugins : "fullpage",
+    selector: ".tinymce",
+  });
+</script>
