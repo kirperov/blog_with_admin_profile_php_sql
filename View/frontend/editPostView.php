@@ -1,21 +1,20 @@
 <!-- View -->
 <!-- la vue de la page pour écrire un chapitre -->
-<?php $title = 'Ecrire un chapitre'; ?>
+<?php $title = 'Editer un chapitre'; ?>
 
 <?php ob_start(); ?>
 <div class="container col-md-12">
-  <h1 class="text-center m-5"> Ecrivez un chapitre </h1>
+  <h1 class="text-center m-5"> Editez un chapitre </h1>
   <div class="col-md-10 mx-auto m-5">
-    <form method="post" action="index.php?action=writePost">
+    <form method="post" action="index.php?action=editPost&amp;postId=<?= $post['id'] ?>">
       <div class="form-group">
         <label for="inputTitle"></label>
-        <input type="text" class="form-control" id="inputTitle" name="inputTitle" placeholder="Entrez le tire">
+        <input type="text" class="form-control" id="inputTitleEdit" name="inputTitleEdit" placeholder="Entrez le tire">
       </div>
       <div class="form-group">
         <label for="inputContent"></label>
-         <textarea class="tinymce"  name="inputContent" cols="50" rows="15">This is some content that will be editable with TinyMCE.</textarea>
+         <textarea class="editPost"  name="inputContentEdit" cols="50" rows="15"></textarea>
       </div>
-
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
    </div>
@@ -30,6 +29,6 @@
   tinymce.init({
     mode : "textareas",
     plugins : "fullpage",
-    selector: "textarea",
+    selector: ".editPost",
    });
 </script>

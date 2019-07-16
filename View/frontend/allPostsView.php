@@ -18,7 +18,7 @@
                     <em>le <?= $dbAllPosts['creation_date_fr'] ?></em>
                 </h3>
                 <p class="card-text m-3">
-                    <?= nl2br(htmlspecialchars($dbAllPosts['content'])) ?>
+                    <?= $dbAllPosts['content'] ?>
                     <br />
                 </p>
                 <em><a  class="btn btn-primary m-3" href="index.php?action=post&amp;postId=<?= $dbAllPosts['id'] ?>">Commentaires</a></em>

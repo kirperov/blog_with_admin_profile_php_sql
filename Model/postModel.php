@@ -20,7 +20,7 @@ class PostManager extends Model  {
   public function getAllPosts()
   {
       $db = $this->dbConnect();
-      $req = $db->query('SELECT id, title, content, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM posts ORDER BY date_post DESC');
+      $req = $db->query('SELECT id, title, content, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr, status FROM posts ORDER BY date_post DESC');
 
       return $req;
   }
@@ -42,5 +42,13 @@ class PostManager extends Model  {
     $insertPost = $req->execute(array($postTitle, $postContent));
 
     return $insertPost;
+  }
+// Request pour mettre à jour le chaptire
+  public function updatePost($postTitle, $postContent, $postId) {
+    $db = $this->dbConnect();
+    $req =$db->prepare("UPDATE posts SET title= ?, content= ? WHERE id= ? ");
+    $updatePost = $req->execute(array($postTitle, $postContent, $postId));
+
+    return $updatePost;
   }
 }

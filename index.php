@@ -22,7 +22,30 @@ try {
           // J'apelle la méthode du controller qui renvoie tous les billets
         } elseif($_GET['action'] == 'listAllPosts') {
             $postsObject->listAllPosts();
+            // La page qui liste les chapitres à éditer
+        } else if($_GET['action'] == 'editPagePosts') {
+          $postsObject->editPostsPage();
         }
+        //recupère le bon Id de post à éditer
+        elseif ($_GET['action'] == 'postEdit') {
+                    if (isset($_GET['postId']) && $_GET['postId'] > 0) {
+                      $postsObject->postViewUpdate();
+                    }
+                    else {
+                      // Erreur ! On arrête tout, on envoie une exception, donc au saute directement au catch
+                      throw new Exception('Aucun identifiant de billet envoyé');
+                    }
+                }
+                // Gère l'envoie de chapitre édité via formulaire
+                  elseif($_GET['action'] == 'editPost') {
+                  if(!empty($_POST['inputTitleEdit']) && !empty($_POST['inputContentEdit'] && isset($_GET['postId']) && $_GET['postId'] > 0)) {
+                    $postsObject->editPost($_POST['inputTitleEdit'],$_POST['inputContentEdit'], $_GET['postId']);
+                  }
+                  else {
+                    // Autre exception
+                    throw new Exception('Tous les champs ne sont pas remplis !');
+                  }
+                }
         // J'apelle la méthode du controller qui renvoie un billet en foction de son ID
         elseif ($_GET['action'] == 'post') {
             if (isset($_GET['postId']) && $_GET['postId'] > 0) {
@@ -33,9 +56,11 @@ try {
               throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
+        // Redirige vers la paga pour écrire un chapitre
         elseif($_GET['action'] == 'pageWriteChapiter') {
           $postsObject->getPageWritePost();
         }
+        // Gère l'envoie de chapitre via formulaire
           elseif($_GET['action'] == 'writePost') {
           if(!empty($_POST['inputTitle']) && !empty($_POST['inputContent'])) {
             $postsObject->writePost($_POST['inputTitle'],$_POST['inputContent']);
@@ -45,6 +70,7 @@ try {
             throw new Exception('Tous les champs ne sont pas remplis !');
           }
         }
+        // Gère l'envoie de commentraire via formulaire
         elseif ($_GET['action'] == 'addComment') {
         if (isset($_GET['postId']) && $_GET['postId'] > 0) {
             if (!empty($_POST['author']) && !empty($_POST['comment'])) {
