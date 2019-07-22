@@ -9,11 +9,11 @@
     <form method="post" action="index.php?action=editPost&amp;postId=<?= $post['id'] ?>">
       <div class="form-group">
         <label for="inputTitle"></label>
-        <input type="text" class="form-control" id="inputTitleEdit" name="inputTitleEdit" placeholder="Entrez le tire">
+        <input type="text" class="form-control" id="inputTitleEdit" name="inputTitleEdit" placeholder="Entrez le tire" value="<?php echo $post['title'] ?>">
       </div>
       <div class="form-group">
         <label for="inputContent"></label>
-         <textarea class="editPost"  name="inputContentEdit" cols="50" rows="15"></textarea>
+         <textarea class="editPost"  name="inputContentEdit" cols="50" rows="15"><?php echo $post['content']?></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

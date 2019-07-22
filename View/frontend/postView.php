@@ -52,6 +52,11 @@ while ($comment = $comments->fetch())
 <div class="containerComment col-md-12 m-2">
   <p><strong><?php echo htmlspecialchars($comment['author']); ?></strong> le <?php echo $comment['comment_date_fr']; ?>
      <a href="#" data-toggle="modal" data-target="#updateFormComment_<?php echo $comment['id'];?>"> Modifier le commentraire </a> </p>
+     <form method="post" action="index.php?action=alertcomment&amp;commentId=<?= $comment['id'] ?>&amp;postId=<?= $post['id'] ?>">
+     <button type="submit" class="btn btn-danger" name="alertTrue"  value="true"> Signaler </button>
+   </form>
+   <!-- <a href="index.php?action=alertcomment&amp;commentId=<?= $comment['id'] ?>&amp;postId=<?= $post['id'] ?>&amp;alertTrue=1"> signaler le commentraire </a> </p> -->
+
   <p><?php echo nl2br(htmlspecialchars($comment['comment']));?></p>
 </div>
 

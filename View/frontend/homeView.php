@@ -3,7 +3,7 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-    <h1 class="text-center m-5"> Les 5 dérnières chapitres </h1>
+    <h1 class="text-center m-5"> Les 5 derniers chapitres </h1>
         <?php
         while ($data = $posts->fetch())
         {

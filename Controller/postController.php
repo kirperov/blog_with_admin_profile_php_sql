@@ -33,7 +33,7 @@ class PostController extends Controller {
       $comments = $commentManager->getComments($_GET['postId']);
       require('view/frontend/postView.php');
   }
-
+  //Redirige vers la page pour écrire un chapitre
   public function getPageWritePost() {
     require('view/frontend/writePostView.php');
   }
@@ -51,9 +51,9 @@ class PostController extends Controller {
       }
   }
 // redediction vers le chapitre à éditer
-  public function postViewUpdate() {
+  public function postViewUpdate($postId) {
       $postsManager = new \Kirill\blog_ecrivain\Model\PostManager();
-      $post = $postsManager->getPost($_GET['postId']);
+      $post = $postsManager->getPost($postId);
       require('view/frontend/editPostView.php');
   }
   // Page pour éditer le chapitre

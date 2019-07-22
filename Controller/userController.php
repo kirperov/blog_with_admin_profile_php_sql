@@ -6,6 +6,7 @@ require_once('Model/commentModel.php');
 require_once('Controller/controller.php');
 
 class UserController extends Controller {
+  //Liste les utilisateurs
   public function listAllUsers() {
     $userManager = new \Kirill\blog_ecrivain\Model\UserManager();
     $allUsersList = $userManager->listUsers();

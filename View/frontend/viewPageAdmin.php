@@ -20,7 +20,7 @@
       </div>
     <div class="col-md-4 col-sm-12 text-center">
       <img class="icons_admin_page" src="images/icons/alerts.png">
-      <h3 class="text-center"> <a href=""> Commentaires signalées </a> </h2>
+      <h3 class="text-center"> <a href="index.php?action=alertedcomments"> Commentaires signalées </a> </h2>
     </div>
      </div>
 </div>
@@ -63,7 +63,7 @@
 
     <?php
     }
-    $allUsersList->closeCursor();
+        $allUsersList->closeCursor();
     ?>
   </div>
 </div>

@@ -29,7 +29,7 @@ try {
         //recupère le bon Id de post à éditer
         elseif ($_GET['action'] == 'postEdit') {
                     if (isset($_GET['postId']) && $_GET['postId'] > 0) {
-                      $postsObject->postViewUpdate();
+                      $postsObject->postViewUpdate($_GET['postId']);
                     }
                     else {
                       // Erreur ! On arrête tout, on envoie une exception, donc au saute directement au catch
@@ -87,24 +87,46 @@ try {
         }
       }
 
-      // Modification Commentaire
-      elseif ($_GET['action'] == 'changeComment') {
-        if (isset($_GET['postId']) && isset($_GET['commentId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
-            if (!empty($_POST['commentUpdate'])) {
-                 $commentsObject->changeComment( $_GET['commentId'], $_GET['postId'], $_POST['commentUpdate']);
-            }
-          else {
-            // Autre exception
-            throw new Exception('Tous les champs ne sont pas remplis !');
-          }
-      }
-      else {
-        // Autre exception
-        throw new Exception('Aucun identifiant de billet envoyé');
+
+    // Redirection vers la page alert commentaire
+    elseif($_GET['action'] == "alertedcomments") {
+      $commentsObject->getPageAlert();
+    }
+    // Signale le commentaire
+    elseif($_GET['action'] == "alertcomment") {
+      if (isset($_GET['postId']) && isset($_GET['commentId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
+        if(!empty($_POST['alertTrue']) && $_POST['alertTrue']) {
+                $commentsObject->getCommentsAlerted($_GET['commentId'], $_GET['postId'], $_POST['alertTrue']);
+                echo  $_POST['alertTrue'];
       }
     }
+  }
+  // Page de modification de commentaire signalé
+  else if($_GET['action'] == "commentEdit") {
+    if(isset($_GET['commentId']) && isset($_GET['postId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
+      $commentsObject->getPageEditComment($_GET['commentId'], $_GET['postId']);
+    }
+  }
+
+  // Modification Commentaire
+  elseif ($_GET['action'] == 'editComment') {
+  if(isset($_GET['commentId']) && isset($_GET['postId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
+        if (!empty($_POST['commentUpdate'])) {
+             $commentsObject->changeComment($_GET['commentId'], $_GET['postId'], $_POST['commentUpdate']);
+        }
+      else {
+        // Autre exception
+        throw new Exception('Tous les champs ne sont pas remplis !');
+      }
+  }
+  else {
+    // Autre exception
+    throw new Exception('Aucun identifiant de billet envoyé');
+  }
+}
+
     // Gestion espace User
-    elseif ($_GET['action'] == 'adminSpace') {
+    else if ($_GET['action'] == 'adminSpace') {
       $userObject->listAllUsers();
     }
   }
