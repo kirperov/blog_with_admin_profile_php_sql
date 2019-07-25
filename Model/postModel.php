@@ -36,6 +36,7 @@ class PostManager extends Model  {
       return $post;
   }
 
+// Poste le chapitre dans la table posts
   public function addPost($postTitle, $postContent) {
     $db = $this->dbConnect();
     $req =$db->prepare('INSERT INTO posts(title, content, date_post) VALUES (?,?, NOW())');
@@ -43,6 +44,7 @@ class PostManager extends Model  {
 
     return $insertPost;
   }
+  
 // Request pour mettre à jour le chaptire
   public function updatePost($postTitle, $postContent, $postId) {
     $db = $this->dbConnect();

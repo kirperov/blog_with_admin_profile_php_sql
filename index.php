@@ -111,8 +111,8 @@ try {
   // Modification Commentaire
   elseif ($_GET['action'] == 'editComment') {
   if(isset($_GET['commentId']) && isset($_GET['postId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
-        if (!empty($_POST['commentUpdate'])) {
-             $commentsObject->changeComment($_GET['commentId'], $_GET['postId'], $_POST['commentUpdate']);
+        if (!empty($_POST['editAuthor']) && $_POST['editCommentUpdate']) {
+             $commentsObject->changeComment($_GET['commentId'], $_GET['postId'], $_POST['editAuthor'], $_POST['editCommentUpdate']);
         }
       else {
         // Autre exception

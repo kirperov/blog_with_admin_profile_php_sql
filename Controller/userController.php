@@ -6,10 +6,14 @@ require_once('Model/commentModel.php');
 require_once('Controller/controller.php');
 
 class UserController extends Controller {
+  private $userManager;
+
+  public function __construct() {
+    $this->userManager =  new \Kirill\blog_ecrivain\Model\UserManager(); //Je crée l'objet qui est défini dans le Model
+ }
   //Liste les utilisateurs
   public function listAllUsers() {
-    $userManager = new \Kirill\blog_ecrivain\Model\UserManager();
-    $allUsersList = $userManager->listUsers();
+    $allUsersList = $this->userManager->listUsers();
     require('View/frontend/viewPageAdmin.php');
   }
 }

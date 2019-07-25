@@ -52,10 +52,10 @@ class CommentManager extends Model {
   }
 
   // Mettre à jour les commentaires
-  public function updateComment($commentId, $postId, $comment) {
+  public function updateComment($commentId, $postId, $author, $comment) {
     $db = $this->dbConnect();
-    $req = $db->prepare("UPDATE comments SET comment = '$comment', alerted = 'false' WHERE id='$commentId' AND id_post = '$postId'");
-    $updatedComment = $req->execute(array($commentId,  $comment, $postId));
+    $req = $db->prepare("UPDATE comments SET author = '$author', comment = '$comment', alerted = 'false' WHERE id='$commentId' AND id_post = '$postId'");
+    $updatedComment = $req->execute(array($commentId , $postId, $author, $comment));
 
     return $updatedComment;
   }
