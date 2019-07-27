@@ -40,4 +40,11 @@ class UserController extends Controller {
     require('view/frontend/viewPageConnexion.php');
    }
 
+   //Redirige vers la modification de user
+   public function editUser() {
+      require('view/frontend/editUserView.php');
+    }
+
+
+
 }

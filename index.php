@@ -200,6 +200,9 @@ echo "forbidden action";
 }
 
   }
+  else if($_GET['action'] == "editPageUser") {
+           $userObject->editUser();
+        }
 
   //Renvoie vers la page de connexion
   else if($_GET['action'] == "connexion") {

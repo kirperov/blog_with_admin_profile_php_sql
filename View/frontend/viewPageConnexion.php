@@ -28,10 +28,9 @@
                 echo '<div class="alert alert-danger" role="alert">
                      Mauvais login ou mot de passe!
                      </div>';
-
             }
         }
-        }
+      }
                   $allUsersList->closeCursor();
               ?>
           <button type="submit" class="btn btn-primary">Submit</button>
