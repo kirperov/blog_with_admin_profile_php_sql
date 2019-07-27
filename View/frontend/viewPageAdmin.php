@@ -6,8 +6,6 @@
 <div class="container col-md-12">
   <h1 class="text-center m-5"> Espace Administrateur </h1>
 
-
-
 <div class="container mt-5 col-md-12">
     <div class="row">
       <div class="col-md-4 col-sm-12  text-center">
@@ -25,7 +23,6 @@
      </div>
 </div>
 
-
  <div class="container mt-5">
    <h3 class="text-center m-5"> Gestion des utilisateurs </h3>
   <?php
@@ -37,6 +34,7 @@
          <tr>
            <th>Modifier</th>
            <th>id</th>
+           <th>Login</th>
            <th>Nom</th>
            <th>Prenom</th>
            <th>Email</th>
@@ -51,6 +49,7 @@
           <a href="#">  <i class="fas fa-user-edit"></i> Modifier</a>
          </td>
          <td><?php echo $dbAllUsersList['id']; ?></td>
+         <td><?php echo $dbAllUsersList['login']; ?></td>
          <td><?php echo $dbAllUsersList['name']; ?></td>
          <td><?php echo $dbAllUsersList['first_name']; ?></td>
          <td><?php echo $dbAllUsersList['email']; ?></td>

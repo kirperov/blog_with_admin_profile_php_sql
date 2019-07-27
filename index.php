@@ -2,6 +2,7 @@
 <!-- On teste les différentes valeurs passées dans l'action à partir des liens grace à GET et on redirige vers le bon contrôleur  -->
 <?php
 // Je initialise les fichiers des controllers
+session_start();
 require('Controller/postController.php');
 require('Controller/commentController.php');
 require('Controller/userController.php');
@@ -26,7 +27,7 @@ try {
         } else if($_GET['action'] == 'editPagePosts') {
           $postsObject->editPostsPage();
         }
-        //recupère le bon Id de post à éditer
+        //recupère le bon Id de post à éditer pour poster
         elseif ($_GET['action'] == 'postEdit') {
                     if (isset($_GET['postId']) && $_GET['postId'] > 0) {
                       $postsObject->postViewUpdate($_GET['postId']);
@@ -49,14 +50,14 @@ try {
         // J'apelle la méthode du controller qui renvoie un billet en foction de son ID
         elseif ($_GET['action'] == 'post') {
             if (isset($_GET['postId']) && $_GET['postId'] > 0) {
-              $postsObject->post();
+              $postsObject->post($_GET['postId']);
             }
             else {
               // Erreur ! On arrête tout, on envoie une exception, donc au saute directement au catch
               throw new Exception('Aucun identifiant de billet envoyé');
             }
         }
-        // Redirige vers la paga pour écrire un chapitre
+        // Redirige vers la page pour écrire un chapitre
         elseif($_GET['action'] == 'pageWriteChapiter') {
           $postsObject->getPageWritePost();
         }
@@ -70,6 +71,13 @@ try {
             throw new Exception('Tous les champs ne sont pas remplis !');
           }
         }
+
+        //Renvoie vers la suppression du chapitre
+        else if($_GET['action'] == "postDelete") {
+            if(isset($_GET['postId']) && $_GET['postId'] > 0) {
+              $postsObject->removePost($_GET['postId']);
+            }
+          }
         // Gère l'envoie de commentraire via formulaire
         elseif ($_GET['action'] == 'addComment') {
         if (isset($_GET['postId']) && $_GET['postId'] > 0) {
@@ -124,6 +132,43 @@ try {
     throw new Exception('Aucun identifiant de billet envoyé');
   }
 }
+
+//Renvoie vers la suppression du commentaire signalé
+else if($_GET['action'] == "commentDelete") {
+    if(isset($_GET['commentId']) && isset($_GET['postId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
+      $commentsObject->removeComment($_GET['commentId'], $_GET['postId']);
+    }
+  }
+
+  //Renvoie vers la page de connexion
+  else if($_GET['action'] == "connexion") {
+         $userObject->getPageConnexion();
+     }
+
+
+   //Traitement la connexion
+   else if($_GET['action'] == "connect") {
+     if(isset($_POST['login']) && isset($_POST['password'])) {
+         if (!empty($_POST['login']) && ($_POST['password'])) {
+           $userObject->getUser($_POST['login'], $_POST['password']);
+
+      }
+        else {
+          // Autre exception
+          throw new Exception('Tous les champs ne sont pas remplis !');
+        }
+    }
+    else {
+      // Autre exception
+      throw new Exception('Aucun login envoyé');
+    }
+  }
+
+  //Renvoie vers la page de connexion
+  else if($_GET['action'] == "logout") {
+         $userObject->getLogout();
+     }
+
 
     // Gestion espace User
     else if ($_GET['action'] == 'adminSpace') {

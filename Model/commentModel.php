@@ -59,4 +59,11 @@ class CommentManager extends Model {
 
     return $updatedComment;
   }
+
+  // Supprimer le commentaire
+  public function deleteComment($commentId, $postId) {
+    $db = $this->dbConnect();
+    $req = $db->prepare("DELETE FROM comments WHERE id='$commentId' AND id_post = '$postId'");
+    $req->execute(array($commentId , $postId));
+  }
 }

@@ -26,7 +26,7 @@
       <tbody>
        <tr>
          <td>
-          <a href="#"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
+          <a href="index.php?action=commentDelete&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
           <a href="index.php?action=commentEdit&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>">  <i class="fas fa-user-edit"></i> Modifier</a>
          </td>
          <td><?php echo $alertedComment['id']; ?></td>

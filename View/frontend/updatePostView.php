@@ -25,7 +25,7 @@
       <tbody>
        <tr>
          <td>
-          <a href="#"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
+          <a href="index.php?action=postDelete&amp;postId=<?= $editAllPosts['id'] ?>"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
           <a href="index.php?action=postEdit&amp;postId=<?= $editAllPosts['id'] ?>">  <i class="fas fa-user-edit"></i> Modifier</a>
          </td>
          <td><?php echo $editAllPosts['id']; ?></td>

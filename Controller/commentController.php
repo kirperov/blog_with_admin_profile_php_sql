@@ -50,5 +50,16 @@ public function changeComment($commentId, $postId, $author, $comment) {
         header('Location: index.php?action=post&postId=' . $postId);
         }
       }
+      //Supprimer le commentaire
+      public function removeComment($commentId, $postId) {
+             $commentDelete = $this->commentManager->deleteComment($commentId, $postId);
+            if ($commentDelete === false) {
+              // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
+              throw new Exception('Impossible de supprimer le commentaire !');
+            }
+            else {
+              header('Location: index.php?action=post&postId=' . $postId);
+              }
+            }
 }
 ?>

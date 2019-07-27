@@ -44,7 +44,7 @@ class PostManager extends Model  {
 
     return $insertPost;
   }
-  
+
 // Request pour mettre à jour le chaptire
   public function updatePost($postTitle, $postContent, $postId) {
     $db = $this->dbConnect();
@@ -52,5 +52,12 @@ class PostManager extends Model  {
     $updatePost = $req->execute(array($postTitle, $postContent, $postId));
 
     return $updatePost;
+  }
+
+  // Supprimer le Chapitre
+  public function deletePost($postId) {
+    $db = $this->dbConnect();
+    $req = $db->prepare("DELETE FROM posts WHERE id = '$postId'");
+    $req->execute(array($postId));
   }
 }

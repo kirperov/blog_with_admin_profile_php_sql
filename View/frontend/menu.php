@@ -23,8 +23,8 @@
         Connexion
       </a>
         <div  class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Se connecter</a>
-        <a class="dropdown-item" href="#">Se déconnecter</a>
+        <a class="dropdown-item" href="index.php?action=connexion">Se connecter</a>
+        <a class="dropdown-item"href="index.php?action=logout">Se déconnecter</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="index.php?action=adminSpace">Espase administrateur</a>
       </div>

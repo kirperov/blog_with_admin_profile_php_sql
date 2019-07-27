@@ -30,9 +30,9 @@ class PostController extends Controller {
   }
 
 
-  public function post() {
-      $post = $this->postsManager->getPost($_GET['postId']);
-      $comments = $this->commentManager->getComments($_GET['postId']);
+  public function post($postId) {
+      $post = $this->postsManager->getPost($postId);
+      $comments = $this->commentManager->getComments($postId);
       require('view/frontend/postView.php');
   }
   //Redirige vers la page pour écrire un chapitre
@@ -56,11 +56,24 @@ class PostController extends Controller {
        $post = $this->postsManager->getPost($postId);
       require('view/frontend/editPostView.php');
   }
-  // Page pour éditer le chapitre
+  //éditer le chapitre
   public function editPost($postTitle, $postContent, $postId) {
-     $post = $this->postsManager->getPost($_GET['postId']);
+    $post = $this->postsManager->getPost( $postId);
     $updatePost = $this->postsManager->updatePost($postTitle, $postContent, $postId);
     if ($updatePost === false) {
+      // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
+      throw new Exception('Impossible d\'éditer le post !');
+    }
+    else {
+        header('Location: index.php?action=listAllPosts');
+      }
+  }
+
+  //Supprimer le chapitre
+  public function removePost($postId) {
+     $post = $this->postsManager->getPost($postId);
+    $deletePost = $this->postsManager->deletePost($postId);
+    if ($deletePost === false) {
       // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
       throw new Exception('Impossible d\'éditer le post !');
     }
