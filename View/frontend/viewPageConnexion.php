@@ -16,65 +16,30 @@
             <label for="password">Mot de passe</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
             </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+            <?php
+            while ($dbAllUsersList = $allUsersList->fetch())
+            {
+              if(isset($_POST['password']) && isset($_POST['login'])) {
+                $isPasswordCorrect = password_verify($_POST['password'], $dbAllUsersList['password']);
+              if($isPasswordCorrect) {
+                  $_SESSION['goodLogin'] = $_POST['login'];
+                  $_SESSION['goodPassword'] = $_POST['password'];
+          } else {
+                echo '<div class="alert alert-danger" role="alert">
+                     Mauvais login ou mot de passe!
+                     </div>';
 
+            }
+        }
+        }
+                  $allUsersList->closeCursor();
+              ?>
+          <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
          <br>
 </div>
-<?php
-while ($dbAllUsersList = $allUsersList->fetch())
-{
-  if(!empty(isset($_POST['login'])) && !empty(isset($_POST['password']))) {
-  if($_POST['login'] == $dbAllUsersList['login'] && $_POST['password'] == $dbAllUsersList['password']) {
-echo 'ok';
-?>
 
-
-
-<table class="table table-hover col-md-10 mx-auto">
-    <thead>
-       <tr>
-         <th>Modifier</th>
-         <th>id</th>
-         <th>Login</th>
-         <th>Nom</th>
-         <th>Prenom</th>
-         <th>Email</th>
-         <th>Date d'inscription</th>
-         <th>Rôle</th>
-       </tr>
-    </thead>
-    <tbody>
-     <tr>
-       <td>
-        <a href="#"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
-        <a href="#">  <i class="fas fa-user-edit"></i> Modifier</a>
-       </td>
-       <td><?php echo $dbAllUsersList['id']; ?></td>
-       <td><?php echo $dbAllUsersList['login']; ?></td>
-       <td><?php echo $dbAllUsersList['name']; ?></td>
-       <td><?php echo $dbAllUsersList['first_name']; ?></td>
-       <td><?php echo $dbAllUsersList['email']; ?></td>
-       <td><?php echo $dbAllUsersList['inscription_date_fr']; ?></td>
-       <td><?php echo $dbAllUsersList['role']; ?></td>
-     </tr>
-
-    </tbody>
-</table>
-
-
-
-  <?php
-} else {
-  echo "not ok";
-
-
-
-  }
-}
-}
-      $allUsersList->closeCursor();
-  ?>
 
 
 <?php $content = ob_get_clean(); ?>

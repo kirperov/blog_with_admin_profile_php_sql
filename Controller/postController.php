@@ -13,6 +13,8 @@ class PostController extends Controller {
     $this->postsManager =  new \Kirill\blog_ecrivain\Model\PostManager(); //Je crée l'objet qui est défini dans le Model
     $this->commentManager = new \Kirill\blog_ecrivain\Model\CommentManager();
 }
+
+
 // Je crée la méthode qui sera charge d'afficher tous les posts sur une page homeView.php
   public function listPosts() {
        $posts = $this->postsManager->getPosts(); // Appel d'une fonction de cet objet

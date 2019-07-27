@@ -12,7 +12,7 @@ class UserController extends Controller {
     $this->userManager =  new \Kirill\blog_ecrivain\Model\UserManager(); //Je crée l'objet qui est défini dans le Model
  }
   //Liste les utilisateurs
-  public function listAllUsers() {
+  public function getPageAdmin() {
     $allUsersList = $this->userManager->listUsers();
     require('View/frontend/viewPageAdmin.php');
   }
@@ -36,6 +36,8 @@ class UserController extends Controller {
   //Redirige vers la deconnexion
   public function getLogout() {
     session_destroy();
+    $allUsersList = $this->userManager->listUsers();
+    require('view/frontend/viewPageConnexion.php');
    }
 
 }
