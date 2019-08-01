@@ -31,7 +31,7 @@ class PostController extends Controller {
       require('View/frontend/updatePostView.php');
   }
 
-
+//recuprère l'id de post et commentaire associé
   public function post($postId) {
       $post = $this->postsManager->getPost($postId);
       $comments = $this->commentManager->getComments($postId);
@@ -60,7 +60,7 @@ class PostController extends Controller {
   }
   //éditer le chapitre
   public function editPost($postTitle, $postContent, $postId) {
-    $post = $this->postsManager->getPost( $postId);
+    $post = $this->postsManager->getPost($postId);
     $updatePost = $this->postsManager->updatePost($postTitle, $postContent, $postId);
     if ($updatePost === false) {
       // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !

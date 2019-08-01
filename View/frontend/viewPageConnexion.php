@@ -4,8 +4,7 @@
       ob_start();
 
 ?>
-
-      <h1 class="text-center"><?php echo $title ?></h1>
+  <h1 class="text-center"><?php echo $title ?></h1>
       <div class="col-md-4 mx-auto">
         <form  action="index.php?action=connect" method="post">
           <div class="form-group">
@@ -17,20 +16,28 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe">
             </div>
             <?php
+            $passwordOk = false;
+            $passworNotOk = false;
+
             while ($dbAllUsersList = $allUsersList->fetch())
             {
-              if(isset($_POST['password']) && isset($_POST['login'])) {
+              if(isset($_POST['password']) && isset($_POST['login']) && !empty($_POST['password']) && !empty($_POST['login'])) {
                 $isPasswordCorrect = password_verify($_POST['password'], $dbAllUsersList['password']);
-              if($isPasswordCorrect) {
-                  $_SESSION['goodLogin'] = $_POST['login'];
-                  $_SESSION['goodPassword'] = $_POST['password'];
-          } else {
-                echo '<div class="alert alert-danger" role="alert">
-                     Mauvais login ou mot de passe!
-                     </div>';
-            }
+                $passwordOk = true;
+                $_SESSION['goodLogin'] = htmlspecialchars($_POST['login']);
+                $_SESSION['goodPassword'] = htmlspecialchars($dbAllUsersList['password']);
+              }
+
+              if(!isset($isPasswordCorrect)) {
+                  $passworNotOk = true;
+          }
         }
-      }
+        if(!$passworNotOk) {
+          echo "t'est un bon!";
+        } elseif(!$passwordOk) {
+          echo "ah non mon gars désolé!";
+        }
+
                   $allUsersList->closeCursor();
               ?>
           <button type="submit" class="btn btn-primary">Submit</button>

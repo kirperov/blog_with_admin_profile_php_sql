@@ -1,5 +1,3 @@
-<!-- View -->
-<!-- la vue de la page d'administration  -->
 <?php $title = 'Les commentaires signalées'; ?>
 
 <?php ob_start(); ?>
@@ -24,19 +22,17 @@
          </tr>
       </thead>
       <tbody>
-       <tr>
-         <td>
-          <a href="index.php?action=commentDelete&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
-          <a href="index.php?action=commentEdit&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>">  <i class="fas fa-user-edit"></i> Modifier</a>
-         </td>
-         <td><?php echo $alertedComment['id']; ?></td>
-         <td><?php echo $alertedComment['id_post']; ?></td>
-         <td><?php echo $alertedComment['author']; ?></td>
-         <td><?php echo $alertedComment['comment']; ?></td>
-         <td><?php echo $alertedComment['comment_date_fr']; ?></td>
-         <!-- <td><?php //echo $alertedComment['alerted']; ?></td> -->
-       </tr>
-
+          <tr>
+             <td>
+              <a href="index.php?action=commentDelete&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
+              <a href="index.php?action=commentEdit&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>">  <i class="fas fa-user-edit"></i> Modifier</a>
+             </td>
+             <td><?= $alertedComment['id']; ?></td>
+             <td><?= $alertedComment['id_post']; ?></td>
+             <td><?= strip_tags($alertedComment['author']); ?></td>
+             <td><?= strip_tags($alertedComment['comment']); ?></td>
+             <td><?= strip_tags($alertedComment['comment_date_fr']); ?></td>
+        </tr>
       </tbody>
   </table>
 

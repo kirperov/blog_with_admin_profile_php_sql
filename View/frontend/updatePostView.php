@@ -1,5 +1,3 @@
-<!-- View -->
-<!-- la vue de la page d'administration  -->
 <?php $title = 'Editer les chapitres'; ?>
 
 <?php ob_start(); ?>
@@ -28,13 +26,12 @@
           <a href="index.php?action=postDelete&amp;postId=<?= $editAllPosts['id'] ?>"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
           <a href="index.php?action=postEdit&amp;postId=<?= $editAllPosts['id'] ?>">  <i class="fas fa-user-edit"></i> Modifier</a>
          </td>
-         <td><?php echo $editAllPosts['id']; ?></td>
-         <td><?php echo $editAllPosts['title']; ?></td>
-         <td><?php echo $editAllPosts['content']; ?></td>
-         <td><?php echo $editAllPosts['creation_date_fr']; ?></td>
-         <td><?php echo $editAllPosts['status']; ?></td>
+         <td><?= $editAllPosts['id']; ?></td>
+         <td><?= $editAllPosts['title']; ?></td>
+         <td><?= $editAllPosts['content']; ?></td>
+         <td><?= $editAllPosts['creation_date_fr']; ?></td>
+         <td><?= $editAllPosts['status']; ?></td>
        </tr>
-
       </tbody>
   </table>
 

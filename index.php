@@ -201,8 +201,30 @@ echo "forbidden action";
 
   }
   else if($_GET['action'] == "editPageUser") {
-           $userObject->editUser();
+        $userObject->editPageUser();
+  }
+
+  else if($_GET['action'] == "editUser") {
+    if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
+      if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+          if (!empty($_POST['inputLogin']) && !empty($_POST['inputName']) && !empty($_POST['inputFirstName']) && !empty($_POST['inputEmail']) && !empty($_POST['inputPassword']) && isset($_GET['userId']) && $_GET['userId'] > 0) {
+            $pass_hache = password_hash($_POST['inputPassword'], PASSWORD_DEFAULT);
+               $userObject->editUser($_POST['inputLogin'], $_POST['inputName'], $_POST['inputFirstName'], $_POST['inputEmail'], $pass_hache, $_GET['userId']);
+          }
+        else {
+          // Autre exception
+          throw new Exception('Tous les champs ne sont pas remplis !');
         }
+    }
+    else {
+      // Autre exception
+      throw new Exception('Aucun identifiant de billet envoyé');
+    }
+}
+else {
+echo "forbidden action";
+}
+}
 
   //Renvoie vers la page de connexion
   else if($_GET['action'] == "connexion") {

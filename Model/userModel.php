@@ -15,8 +15,7 @@ class UserManager extends Model {
     }
 
     // Méthode qui récupère un user précis grâce au l'id passée en paramètre à partir du controleur(qui réqupère l'id avec GET dans l'url)
-      public function user($login, $password)
-      {
+      public function user($login, $password) {
           $db = $this->dbConnect();
           $req = $db->prepare('SELECT id, name, login, first_name, email, DATE_FORMAT(inscription_date, \'%d/%m/%Y à %Hh%imin%ss\') AS inscription_date_fr, role FROM user WHERE login = ? AND pasword = ?');
           $req->execute(array($login, $password));
@@ -24,4 +23,13 @@ class UserManager extends Model {
 
           return $user;
       }
+
+      // Request pour mettre à jour le User
+        public function updateUser($login, $name, $firstName, $email, $password, $userId) {
+          $db = $this->dbConnect();
+          $req = $db->prepare("UPDATE user SET login = ?, name = ?, first_name = ?, email = ?, password = ?  WHERE id = ? ");
+          $updateUser = $req->execute(array($login, $name, $firstName, $email, $password, $userId));
+
+          return $updateUser;
+        }
 }

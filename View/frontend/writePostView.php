@@ -1,5 +1,3 @@
-<!-- View -->
-<!-- la vue de la page pour écrire un chapitre -->
 <?php $title = 'Ecrire un chapitre'; ?>
 
 <?php ob_start(); ?>

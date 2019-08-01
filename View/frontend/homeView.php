@@ -1,5 +1,3 @@
-<!-- View -->
-<!-- la vue de la page d'accueil. Elle affiche les 5 dernirès billets.  -->
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
@@ -11,17 +9,17 @@
             <div class="card-body col-md-12">
                   <div class="card m-5">
                     <div class="card-header">
-                      Post <?= htmlspecialchars($data['id']) ?>
+                      Post <?= $data['id']; ?>
                     </div>
                     <h3 class="card-title m-3">
-                    <?= htmlspecialchars($data['title']) ?>
-                    <em>le <?= $data['creation_date_fr'] ?></em>
+                    <?= $data['title']; ?>
+                    <em>le <?= $data['creation_date_fr']; ?></em>
                 </h3>
                 <p class="card-text m-3">
-                    <?= nl2br(htmlspecialchars($data['content'])) ?>
+                    <?= $data['content']; ?>
                     <br />
                 </p>
-                <em><a  class="btn btn-primary m-3" href="index.php?action=post&amp;postId=<?= $data['id'] ?>">Commentaires</a></em>
+                <em><a class="btn btn-primary m-3" href="index.php?action=post&amp;postId=<?= $data['id'] ?>">Voir le chapitre</a></em>
             </div>
           </div>
         <?php

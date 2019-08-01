@@ -1,6 +1,4 @@
-
-
-    <footer id="myFooter">
+<footer id="myFooter">
         <div class="second-bar">
            <div class="container">
                 <h2 class="logo"><a href="#"> Jean Forteroche </a></h2>
@@ -11,4 +9,4 @@
                 </div>
             </div>
         </div>
-    </footer>
+</footer>

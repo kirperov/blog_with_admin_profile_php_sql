@@ -1,11 +1,11 @@
 <!-- View -->
 <!-- la vue de la page d'administration  -->
-<?php $title = 'Espace Administrateur'; ?>
+<?= $title = 'Espace Administrateur'; ?>
 
 <?php ob_start(); ?>
 <div class="container col-md-12">
   <h1 class="text-center m-5"> Espace Administrateur </h1>
-<?php echo $_SESSION['goodLogin'] . " and " . $_SESSION['goodPassword'];
+<?= $_SESSION['goodLogin'] . " and " . $_SESSION['goodPassword'];
  ?>
 <div class="container mt-5 col-md-12">
     <div class="row">
@@ -22,7 +22,7 @@
       <h3 class="text-center"> <a href="index.php?action=alertedcomments"> Commentaires signalées </a> </h2>
     </div>
      </div>
-</div>
+ </div>
 
  <div class="container mt-5">
    <h3 class="text-center m-5"> Gestion des utilisateurs </h3>
@@ -47,15 +47,15 @@
        <tr>
          <td>
           <a href="#"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
-          <a href="index.php?action=editPageUser">  <i class="fas fa-user-edit"></i> Modifier</a>
+          <a href="index.php?action=editPageUser&amp;userId=<?= $dbAllUsersList['id'] ?>">  <i class="fas fa-user-edit"></i> Modifier</a>
          </td>
-         <td><?php echo $dbAllUsersList['id']; ?></td>
-         <td><?php echo $dbAllUsersList['login']; ?></td>
-         <td><?php echo $dbAllUsersList['name']; ?></td>
-         <td><?php echo $dbAllUsersList['first_name']; ?></td>
-         <td><?php echo $dbAllUsersList['email']; ?></td>
-         <td><?php echo $dbAllUsersList['inscription_date_fr']; ?></td>
-         <td><?php echo $dbAllUsersList['role']; ?></td>
+         <td><?= $dbAllUsersList['id']; ?></td>
+         <td><?= $dbAllUsersList['login']; ?></td>
+         <td><?= strip_tags($dbAllUsersList['name']); ?></td>
+         <td><?= strip_tags($dbAllUsersList['first_name']); ?></td>
+         <td><?= strip_tags($dbAllUsersList['email']); ?></td>
+         <td><?= strip_tags($dbAllUsersList['inscription_date_fr']); ?></td>
+         <td><?= strip_tags($dbAllUsersList['role']); ?></td>
        </tr>
 
       </tbody>
