@@ -23,6 +23,7 @@ class UserController extends Controller {
   public function getPageConnexion() {
     $allUsersList = $this->userManager->listUsers();
      require('view/frontend/viewPageConnexion.php');
+
   }
 
   public function getUser($login, $password) {

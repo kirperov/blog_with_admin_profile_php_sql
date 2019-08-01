@@ -26,114 +26,118 @@ try {
             // La page qui liste les chapitres à éditer
         } else if($_GET['action'] == 'editPagePosts') {
           if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-            if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+            if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
               $postsObject->editPostsPage();
           }
       }else {
-          echo "you can't get this page because wrong password or login";
+          echo "Typing Error";
       }
     }
 
         //recupère le bon Id de post à éditer pour poster
         elseif ($_GET['action'] == 'postEdit') {
-                    if (isset($_GET['postId']) && $_GET['postId'] > 0) {
+                    if (isset($_GET['postId']) && isset($_GET['postId']) > 0) {
                       if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-                        if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+                        if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
                           $postsObject->postViewUpdate($_GET['postId']);
                       }
                   }else {
-                      echo "you can't get this page because wrong password or login";
+                      echo "Typing Error";
                   }
-                    }
+                }
                     else {
                       // Erreur ! On arrête tout, on envoie une exception, donc au saute directement au catch
-                      throw new Exception('Aucun identifiant de billet envoyé');
+                      throw new Exception('No post ID sent!');
                     }
                 }
                 // Gère l'envoi du chapitre édité via formulaire
                   elseif($_GET['action'] == 'editPost') {
                     if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-                      if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
-                        if(!empty($_POST['inputTitleEdit']) && !empty($_POST['inputContentEdit'] && isset($_GET['postId']) && $_GET['postId'] > 0)) {
+                      if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
+                        if(!empty($_POST['inputTitleEdit']) && !empty($_POST['inputContentEdit'] && isset($_GET['postId']) && isset($_GET['postId']) > 0)) {
                           $postsObject->editPost($_POST['inputTitleEdit'],$_POST['inputContentEdit'], $_GET['postId']);
                         }
                         else {
                           // Autre exception
-                          throw new Exception('Tous les champs ne sont pas remplis !');
+                          $urlRedirect = "Location:index.php?action=postEdit&postId=";
+                          header($urlRedirect . $_GET['postId']);
+                          throw new Exception('Typing error!');
                         }
                         $postsObject->postViewUpdate($_GET['postId']);
                     }
                 }else {
-                    echo "forbidden action";
+                    echo "Forbidden action";
                 }
               }
         // J'apelle la méthode du controller qui renvoie un billet en foction de son ID
         elseif ($_GET['action'] == 'post') {
-          if (isset($_GET['postId']) && $_GET['postId'] > 0) {
+          if (isset($_GET['postId']) && isset($_GET['postId']) > 0) {
             $postsObject->post($_GET['postId']);
           }
           else {
             // Erreur ! On arrête tout, on envoie une exception, donc au saute directement au catch
-            throw new Exception('Aucun identifiant de billet envoyé');
+            throw new Exception('No post ID sent');
           }
 
         }
         // Redirige vers la page pour écrire un chapitre
         elseif($_GET['action'] == 'pageWriteChapiter') {
           if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-            if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+            if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
               $postsObject->getPageWritePost();
           }
       }else {
-          echo "you can't get this page because wrong password or login";
+          echo "Error 404";
       }
         }
 
         // Gère l'envoie de chapitre via formulaire
           elseif($_GET['action'] == 'writePost') {
             if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-              if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
-                if(!empty($_POST['inputTitle']) && !empty($_POST['inputContent'])) {
+              if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
+                if(isset($_POST['inputTitle']) && isset($_POST['inputContent']) && !empty($_POST['inputTitle']) && !empty($_POST['inputContent'])) {
                   $postsObject->writePost($_POST['inputTitle'],$_POST['inputContent']);
                 }
                 else {
                   // Autre exception
-                  throw new Exception('Tous les champs ne sont pas remplis !');
-                }
+                  $urlRedirect = "Location:index.php?action=pageWriteChapiter&postId=";
+                  header($urlRedirect . $_GET['postId']);
+                  throw new Exception('Typing error!');
+                 }
               }
         }
         else {
-            echo "you can't get this page because wrong password or login";
+            echo "Error 404";
         }
       }
 
         //Renvoie vers la suppression du chapitre
         else if($_GET['action'] == "postDelete") {
           if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-            if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
-              if(isset($_GET['postId']) && $_GET['postId'] > 0) {
+            if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
+              if(isset($_GET['postId']) && isset($_GET['postId']) > 0) {
                 $postsObject->removePost($_GET['postId']);
               }
             }
       }
       else {
-          echo "forbidden action";
+          echo "Error 404";
       }
     }
         // Gère l'envoie de commentraire via formulaire
         elseif ($_GET['action'] == 'addComment') {
-        if (isset($_GET['postId']) && $_GET['postId'] > 0) {
+        if (isset($_GET['postId']) && isset($_GET['postId']) > 0) {
             if (!empty($_POST['author']) && !empty($_POST['comment'])) {
               $commentsObject->addComment($_GET['postId'], $_POST['author'], $_POST['comment']);
             }
             else {
               // Autre exception
-              throw new Exception('Tous les champs ne sont pas remplis !');
+              throw new Exception('Typing Error');
             }
         }
         else {
           // Autre exception
-          throw new Exception('Aucun identifiant de billet envoyé');
+          throw new Exception('No post ID sent');
         }
       }
 
@@ -145,84 +149,94 @@ try {
     // Signale le commentaire
     elseif($_GET['action'] == "alertcomment") {
       if (isset($_GET['postId']) && isset($_GET['commentId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
-        if(!empty($_POST['alertTrue']) && $_POST['alertTrue']) {
+        if(!empty($_POST['alertTrue']) && !empty($_POST['alertTrue'])) {
                 $commentsObject->getCommentsAlerted($_GET['commentId'], $_GET['postId'], $_POST['alertTrue']);
-                echo  $_POST['alertTrue'];
-      }
+                $urlRedirect = "Location:index.php?action=post&postId=";
+                header($urlRedirect . $_GET['postId']);
+       }
     }
   }
   // Page de modification de commentaire signalé
   else if($_GET['action'] == "commentEdit") {
     if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-      if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+      if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
         if(isset($_GET['commentId']) && isset($_GET['postId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
           $commentsObject->getPageEditComment($_GET['commentId'], $_GET['postId']);
         }
     }
   } else {
-          echo "you can't get this page because wrong password or login";
+          echo "Error 404";
   }
 }
 
   // Modification Commentaire
   elseif ($_GET['action'] == 'editComment') {
     if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-      if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+      if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
         if(isset($_GET['commentId']) && isset($_GET['postId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
-          if (!empty($_POST['editAuthor']) && $_POST['editCommentUpdate']) {
+          if (!empty($_POST['editAuthor']) && !empty($_POST['editCommentUpdate'])) {
                $commentsObject->changeComment($_GET['commentId'], $_GET['postId'], $_POST['editAuthor'], $_POST['editCommentUpdate']);
           }
         else {
           // Autre exception
-          throw new Exception('Tous les champs ne sont pas remplis !');
+          $urlRedirect = "Location:index.php?action=commentEdit&commentId=";
+          header($urlRedirect . $_GET['commentId'] . '&' . 'postId=' . $_GET['postId']);
+          throw new Exception('Typing Error');
         }
     }
     else {
       // Autre exception
-      throw new Exception('Aucun identifiant de billet envoyé');
+      throw new Exception('No ID sent');
     }
   }
 }
 else {
-echo "forbidden action";
+echo "Error 404";
 }
 }
 
 //Renvoie vers la suppression du commentaire signalé
 else if($_GET['action'] == "commentDelete") {
   if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-  if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+  if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
     if(isset($_GET['commentId']) && isset($_GET['postId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
       $commentsObject->removeComment($_GET['commentId'], $_GET['postId']);
-    }}
+    }
+  }
 }else {
-echo "forbidden action";
+echo "Error 404";
 }
 
   }
   else if($_GET['action'] == "editPageUser") {
-        $userObject->editPageUser();
+    if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
+    if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
+      $userObject->editPageUser();
+    }
+  }else {
+  echo "Error 404";
+  }
   }
 
   else if($_GET['action'] == "editUser") {
     if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-      if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+      if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
           if (!empty($_POST['inputLogin']) && !empty($_POST['inputName']) && !empty($_POST['inputFirstName']) && !empty($_POST['inputEmail']) && !empty($_POST['inputPassword']) && isset($_GET['userId']) && $_GET['userId'] > 0) {
             $pass_hache = password_hash($_POST['inputPassword'], PASSWORD_DEFAULT);
                $userObject->editUser($_POST['inputLogin'], $_POST['inputName'], $_POST['inputFirstName'], $_POST['inputEmail'], $pass_hache, $_GET['userId']);
           }
         else {
           // Autre exception
-          throw new Exception('Tous les champs ne sont pas remplis !');
+          throw new Exception('Typing Error');
         }
     }
     else {
       // Autre exception
-      throw new Exception('Aucun identifiant de billet envoyé');
+      throw new Exception('No ID sent');
     }
 }
 else {
-echo "forbidden action";
+echo "Error 404";
 }
 }
 
@@ -235,7 +249,7 @@ echo "forbidden action";
    //Traitement la connexion
    else if($_GET['action'] == "connect") {
      if(isset($_POST['login']) && isset($_POST['password'])) {
-         if (!empty($_POST['login']) && ($_POST['password'])) {
+         if (!empty($_POST['login']) && !empty($_POST['password'])) {
            $_SESSION['login'] = $_POST['login'];
            $_SESSION['password'] = $_POST['password'];
            $userObject->getUser($_POST['login'], $_POST['password']);
@@ -243,31 +257,30 @@ echo "forbidden action";
       }
         else {
           // Autre exception
-          throw new Exception('Tous les champs ne sont pas remplis !');
+          header("Location: index.php?action=connexion");
+          throw new Exception('Typing error!');
         }
     }
     else {
       // Autre exception
-      throw new Exception('Error login or password');
+      throw new Exception('Error login or password!');
     }
   }
 
   //Renvoie vers la page de connexion
   else if($_GET['action'] == "logout") {
          $userObject->getLogout();
-         echo "you're logout";
-     }
+      }
 
 
     // Gestion espace User
     else if ($_GET['action'] == 'adminSpace') {
       if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
-        if(!empty($_SESSION['goodLogin']) && ($_SESSION['goodLogin'])) {
+        if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
           $userObject->getPageAdmin();
         }
       }  else {
-          // $postsObject->listPosts();
-          echo 'erreur de connexion';
+           echo 'Error 404';
       }
     }
   } else {
