@@ -13,7 +13,7 @@
           <label for="inputContent"></label>
            <textarea class="editPost"  name="inputContentEdit" cols="50" rows="15"><?= $post['content']; ?></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Modifier</button>
       </form>
      </div>
 </div>

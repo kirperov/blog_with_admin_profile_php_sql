@@ -30,7 +30,7 @@ try {
               $postsObject->editPostsPage();
           }
       }else {
-          echo "Typing Error";
+        $userObject->getPageError();
       }
     }
 
@@ -42,12 +42,12 @@ try {
                           $postsObject->postViewUpdate($_GET['postId']);
                       }
                   }else {
-                      echo "Typing Error";
+                    $userObject->getPageError();
                   }
                 }
                     else {
                       // Erreur ! On arrête tout, on envoie une exception, donc au saute directement au catch
-                      throw new Exception('No post ID sent!');
+                      $userObject->getPageError();
                     }
                 }
                 // Gère l'envoi du chapitre édité via formulaire
@@ -66,7 +66,7 @@ try {
                         $postsObject->postViewUpdate($_GET['postId']);
                     }
                 }else {
-                    echo "Forbidden action";
+                  $userObject->getPageError();
                 }
               }
         // J'apelle la méthode du controller qui renvoie un billet en foction de son ID
@@ -87,7 +87,7 @@ try {
               $postsObject->getPageWritePost();
           }
       }else {
-          echo "Error 404";
+        $userObject->getPageError();
       }
         }
 
@@ -102,12 +102,11 @@ try {
                   // Autre exception
                   $urlRedirect = "Location:index.php?action=pageWriteChapiter&postId=";
                   header($urlRedirect . $_GET['postId']);
-                  throw new Exception('Typing error!');
-                 }
+                  }
               }
         }
         else {
-            echo "Error 404";
+          $userObject->getPageError();
         }
       }
 
@@ -121,7 +120,7 @@ try {
             }
       }
       else {
-          echo "Error 404";
+        $userObject->getPageError();
       }
     }
         // Gère l'envoie de commentraire via formulaire
@@ -132,12 +131,15 @@ try {
             }
             else {
               // Autre exception
-              throw new Exception('Typing Error');
+              $urlRedirect = "Location:index.php?action=post&postId=";
+              header($urlRedirect . $_GET['postId']);
+
             }
         }
         else {
           // Autre exception
-          throw new Exception('No post ID sent');
+           $userObject->getPageError();
+
         }
       }
 
@@ -165,7 +167,7 @@ try {
         }
     }
   } else {
-          echo "Error 404";
+    $userObject->getPageError();
   }
 }
 
@@ -181,17 +183,16 @@ try {
           // Autre exception
           $urlRedirect = "Location:index.php?action=commentEdit&commentId=";
           header($urlRedirect . $_GET['commentId'] . '&' . 'postId=' . $_GET['postId']);
-          throw new Exception('Typing Error');
         }
     }
     else {
       // Autre exception
-      throw new Exception('No ID sent');
+      $userObject->getPageError();
     }
   }
 }
 else {
-echo "Error 404";
+  $userObject->getPageError();
 }
 }
 
@@ -204,7 +205,7 @@ else if($_GET['action'] == "commentDelete") {
     }
   }
 }else {
-echo "Error 404";
+  $userObject->getPageError();
 }
 
   }
@@ -214,7 +215,7 @@ echo "Error 404";
       $userObject->editPageUser();
     }
   }else {
-  echo "Error 404";
+    $userObject->getPageError();
   }
   }
 
@@ -227,7 +228,8 @@ echo "Error 404";
           }
         else {
           // Autre exception
-          throw new Exception('Typing Error');
+           $urlRedirect = "Location:index.php?action=editPageUser&userId=";
+          header($urlRedirect . $_GET['userId']);
         }
     }
     else {
@@ -236,7 +238,7 @@ echo "Error 404";
     }
 }
 else {
-echo "Error 404";
+  $userObject->getPageError();
 }
 }
 
@@ -258,12 +260,11 @@ echo "Error 404";
         else {
           // Autre exception
           header("Location: index.php?action=connexion");
-          throw new Exception('Typing error!');
-        }
+         }
     }
     else {
       // Autre exception
-      throw new Exception('Error login or password!');
+      header("Location: index.php?action=connexion");
     }
   }
 
@@ -280,10 +281,13 @@ echo "Error 404";
           $userObject->getPageAdmin();
         }
       }  else {
-           echo 'Error 404';
+        $userObject->getPageConnexion();
+
       }
+    } elseif($_GET['action'] == "pageEditUser") {
+      $userObject->getPageGestionUserEdit();
     }
-  } else {
+  }  else {
     // Si pas d'actions renvoie vers la page HOME
     $postsObject->listPosts();
   }

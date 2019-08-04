@@ -58,7 +58,15 @@ class UserController extends Controller {
         // header('Location: index.php?action=adminSpace');
         }
       }
+      //Renvoi ver la page d'erreur
+      public function getPageError() {
+        require('view/frontend/pageError.php');
+      }
 
+      public function getPageGestionUserEdit() {
+        $allUsersList = $this->userManager->listUsers();
+        require('view/frontend/viewPageGestionUser.php');
+      }
 
 
 }

@@ -7,7 +7,7 @@ class CommentManager extends Model {
   public function getComments($postId)
   {
       $db = $this->dbConnect();
-      $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE id_post  = ? ORDER BY date_comment DESC');
+      $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr FROM comments WHERE id_post  = ? ORDER BY date_comment');
       $comments->execute(array($postId));
 
       return $comments;
@@ -16,7 +16,7 @@ class CommentManager extends Model {
   public function getAlertedComments()
   {
       $db = $this->dbConnect();
-      $alertedComments = $db->query('SELECT id, id_post, author, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, alerted FROM comments WHERE  alerted = true ORDER BY date_comment DESC');
+      $alertedComments = $db->query('SELECT id, id_post, author, comment, DATE_FORMAT(date_comment, \'%d/%m/%Y à %Hh%i\') AS comment_date_fr, alerted FROM comments WHERE  alerted = true ORDER BY date_comment DESC');
 
       return $alertedComments;
   }

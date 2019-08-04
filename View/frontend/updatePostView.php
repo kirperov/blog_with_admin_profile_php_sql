@@ -15,7 +15,6 @@
            <th>Modifier</th>
            <th>id</th>
            <th>Titre</th>
-           <th>Post</th>
            <th>Date de création</th>
            <th>Etat</th>
          </tr>
@@ -28,7 +27,6 @@
          </td>
          <td><?= $editAllPosts['id']; ?></td>
          <td><?= $editAllPosts['title']; ?></td>
-         <td><?= $editAllPosts['content']; ?></td>
          <td><?= $editAllPosts['creation_date_fr']; ?></td>
          <td><?= $editAllPosts['status']; ?></td>
        </tr>

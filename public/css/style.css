@@ -2,6 +2,7 @@
   width: 35%;
 }
 
+ 
 #myFooter {
     background-color: #3a3f46;
     color: white;
@@ -122,4 +123,22 @@ body{
 #myFooter{
    flex: 0 0 auto;
    -webkit-flex: 0 0 auto;
+}
+.content-post{
+     height: 250px;
+     overflow: hidden;
+  }
+
+.return-icon {
+  font-size: 2em;
+  color: #293462;
+}
+
+.alert-comment {
+  font-size: 2em;
+  color: #f95959;
+}
+
+.img-menu-admin {
+  cursor: pointer;
 }

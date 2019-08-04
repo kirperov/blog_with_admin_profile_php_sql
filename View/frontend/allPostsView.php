@@ -1,25 +1,25 @@
 <?php $title = 'Tous les Chapitres'; ?>
 
 <?php ob_start(); ?>
-    <h1 class="text-center m-5"> Tous les Chapitres </h1>
+<div style="background-color: #216583; height: 200px;">
+    <h1 class="text-center m-5 text-white"> Tous les Chapitres </h1>
+  </div>
         <?php
         while ($dbAllPosts = $allPosts->fetch())
         {
         ?>
-            <div class="card-body col-md-12">
+            <div class="card-body col-md-12" data-aos="fade-up">
                   <div class="card m-5">
                     <div class="card-header">
-                      Post <?= $dbAllPosts['id']; ?>
+                      <span class="font-weight-bold"> <?= $dbAllPosts['title'] . ", "; ?></span>
+                      <span class="font-weight-lighter font-italic">publié le <?= $dbAllPosts['creation_date_fr'] ?></span>
+                      <a style="text-decoration: none; color:#ff8a5c;" class="btn-read_link m-3" href="index.php?action=post&amp;postId=<?= $dbAllPosts['id'] ?>"><i style="animation-duration: 3s;" class="fab fa-readme fa-2x animated infinite rubberBand" title="Lire ce chapitre"></i></a>
                     </div>
-                    <h3 class="card-title m-3">
-                    <?= $dbAllPosts['title']; ?>
-                    <em>le <?= $dbAllPosts['creation_date_fr'] ?></em>
-                </h3>
-                <p class="card-text m-3">
+                  <div class="m-5">
+                <article class="card-text m-3 content-post">
                     <?= $dbAllPosts['content']; ?>
-                    <br />
-                </p>
-                <em><a class="btn btn-primary m-3" href="index.php?action=post&amp;postId=<?= $dbAllPosts['id'] ?>">Commentaires</a></em>
+                </article>
+              </div>
             </div>
           </div>
         <?php
