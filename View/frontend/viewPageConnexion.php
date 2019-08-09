@@ -4,8 +4,9 @@
       ob_start();
 
 ?>
-  <h1 class="text-center"><?php echo $title ?></h1>
-      <div class="col-md-4 mx-auto">
+  <div class="col-md-12 align-items-center">
+      <div class="col-md-4 mx-auto mt-5">
+        <h1 class="text-center"><?php echo $title ?></h1>
         <form  action="index.php?action=connect" method="post">
           <div class="form-group">
             <label for="exampleInputEmail1">Login</label>
@@ -23,29 +24,40 @@
             {
               if(isset($_POST['password']) && isset($_POST['login']) && !empty($_POST['password']) && !empty($_POST['login'])) {
                 $isPasswordCorrect = password_verify($_POST['password'], $dbAllUsersList['password']);
-                if($isPasswordCorrect) {
+                if($isPasswordCorrect && $_POST['login'] == $dbAllUsersList['login']) {
                     $passwordOk = true;
                     $_SESSION['goodLogin'] = htmlspecialchars($_POST['login']);
                     $_SESSION['goodPassword'] = htmlspecialchars($dbAllUsersList['password']);
                     header("Location: index.php?action=adminSpace");
                 }
-                if(!$isPasswordCorrect) {
+                if(!$isPasswordCorrect && $_POST['login'] != $dbAllUsersList['login']) {
                   $passwordNotOk = true;
                  }
               }
             }
             if(!$passwordNotOk) {
-                  echo '<div class="alert alert-primary" role="alert"> Veillez rentrer votre login et mot de passe </div>';
+              ?>
+                   <div class="alert alert-primary alert-dismissible fade show" role="alert"  data-aos="zoom-in"> <span> Veillez rentrer votre login et mot de passe </span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+            <?php
             }
-          elseif(!$passwordOk) {
-                  echo '<div class="alert alert-danger" role="alert"> Mauvaus login ou mot de passe! </div>';
-          }
+          elseif(!$passwordOk) { ?>
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert"  data-aos="zoom-in"> <span>Mauvaus login ou mot de passe! </span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+          <?php }
                   $allUsersList->closeCursor();
               ?>
           <button type="submit" class="btn btn-primary">Se connecter</button>
 
         </form>
          <br>
+    </div>
 </div>
 
 

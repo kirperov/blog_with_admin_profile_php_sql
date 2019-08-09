@@ -2,41 +2,48 @@
 
 <?php ob_start(); ?>
 <div class="container col-md-12">
-
- <div class="container mt-5">
-   <h3 class="text-center m-5"> Gestion des chapitres </h3>
-  <?php
-  while ($editAllPosts = $allPosts->fetch())
-  {
-  ?>
-  <table class="table table-hover col-md-10 mx-auto">
-      <thead>
-         <tr>
-           <th>Modifier</th>
-           <th>id</th>
-           <th>Titre</th>
-           <th>Date de création</th>
-           <th>Etat</th>
-         </tr>
-      </thead>
-      <tbody>
+  <h1 class="text-center m-5"> Gestion des chapitres </h1>
+  <div class="container mt-5" data-aos="zoom-in">
+   <a class="mb-5" href="index.php?action=adminSpace"> <span class="return-icon" title="Rtourer à la page de tous les chapitres"><i id="btn-return" class="fas fa-undo animated mb-4"></i></span></a>
+   <?php
+   if(isset($allPosts) && $allPosts != null) {
+   ?>
+   <table class="display table table-bordered table-hover table-sm col-md-12 mx-auto">
+       <thead>
+          <tr>
+            <th>Modifier</th>
+            <th>id</th>
+            <th>Titre</th>
+            <th>Date de création</th>
+           </tr>
+       </thead>
+       <tbody>
+   <?php
+   foreach ($allPosts as $post)
+   {
+   ?>
        <tr>
          <td>
-          <a href="index.php?action=postDelete&amp;postId=<?= $editAllPosts['id'] ?>"> <i class="fas fa-user-minus"></i> Supprimer</a> </br>
-          <a href="index.php?action=postEdit&amp;postId=<?= $editAllPosts['id'] ?>">  <i class="fas fa-user-edit"></i> Modifier</a>
-         </td>
-         <td><?= $editAllPosts['id']; ?></td>
-         <td><?= $editAllPosts['title']; ?></td>
-         <td><?= $editAllPosts['creation_date_fr']; ?></td>
-         <td><?= $editAllPosts['status']; ?></td>
-       </tr>
-      </tbody>
-  </table>
+          <a href="index.php?action=postEdit&amp;postId=<?= $post['id'] ?>">  <i style="color: #49beb7;"  class="fas fa-user-edit"></i> Modifier</a><br>
+          <a href="index.php?action=postDelete&amp;postId=<?= $post['id'] ?>"> <i style="color: #da4302;" class="fas fa-user-minus"></i> Supprimer</a> </br>
 
+         </td>
+         <td><?= $post['id']; ?></td>
+         <td><?= $post['title']; ?></td>
+         <td><?= $post['creation_date_fr']; ?></td>
+        </tr>
+      </tbody>
     <?php
     }
     $allPosts->closeCursor();
     ?>
+
+  </table>
+  <?php
+  } else {
+    echo "Pas de chapitres à éditer";
+  }
+  ?>
   </div>
 </div>
 

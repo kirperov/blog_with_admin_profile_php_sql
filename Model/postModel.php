@@ -11,7 +11,7 @@ class PostManager extends Model  {
   public function getPosts()
   {
       $db = $this->dbConnect();
-      $req = $db->query('SELECT id, title, content, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr FROM posts ORDER BY date_post DESC LIMIT 0, 5');
+      $req = $db->query('SELECT id, title, SUBSTRING(content, 50, 1000) AS extractContent, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr FROM posts ORDER BY date_post DESC LIMIT 0, 5');
 
       return $req;
   }
@@ -20,7 +20,7 @@ class PostManager extends Model  {
   public function getAllPosts()
   {
       $db = $this->dbConnect();
-      $req = $db->query('SELECT id, title, content, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr, status FROM posts ORDER BY date_post');
+      $req = $db->query('SELECT id, title,  SUBSTRING(content, 50, 1000) AS extractContent, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr, status FROM posts ORDER BY date_post');
 
       return $req;
   }

@@ -252,8 +252,8 @@ else {
    else if($_GET['action'] == "connect") {
      if(isset($_POST['login']) && isset($_POST['password'])) {
          if (!empty($_POST['login']) && !empty($_POST['password'])) {
-           $_SESSION['login'] = $_POST['login'];
-           $_SESSION['password'] = $_POST['password'];
+           // $_SESSION['login'] = $_POST['login'];
+           // $_SESSION['password'] = $_POST['password'];
            $userObject->getUser($_POST['login'], $_POST['password']);
 
       }

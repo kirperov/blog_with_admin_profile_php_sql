@@ -25,8 +25,13 @@ class CommentManager extends Model {
   public function postComment($postId, $author, $comment)
   {
       $db = $this->dbConnect();
-      $comments = $db->prepare('INSERT INTO comments(id_post, author, comment, date_comment) VALUES(?, ?, ?, NOW())');
-      $affectedLines = $comments->execute(array($postId, $author, $comment));
+
+      $comments = $db->prepare("INSERT INTO comments(id_post, author, comment, date_comment) VALUES(:id, :author, :comment, NOW())");
+      $comments->bindParam(':id', $postId, PDO::PARAM_INT);
+      $comments->bindParam(':author', $author, PDO::PARAM_STR);
+      $comments->bindParam(':comment', $comment, PDO::PARAM_STR);
+
+      $affectedLines = $comments->execute();
 
       return $affectedLines;
   }

@@ -4,7 +4,8 @@
 <div class="container col-md-12">
   <h1 class="text-center m-5"> Editez un chapitre </h1>
     <div class="col-md-10 mx-auto m-5">
-      <form method="post" action="index.php?action=editPost&amp;postId=<?= $post['id']; ?>">
+      <form method="post" action="index.php?action=editPost&amp;postId=<?= $post['id']; ?>" data-aos="zoom-in">
+        <a href="index.php?action=editPagePosts"> <span class="return-icon" title="Rtourer à la page de tous les chapitres"><i id="btn-return" class="fas fa-undo animated"></i></span></a>
         <div class="form-group">
           <label for="inputTitle"></label>
           <input type="text" class="form-control" id="inputTitleEdit" name="inputTitleEdit" placeholder="Entrez le tire" value="<?= $post['title']; ?>">

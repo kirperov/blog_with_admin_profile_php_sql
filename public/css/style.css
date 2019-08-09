@@ -2,10 +2,27 @@
   width: 35%;
 }
 
- 
+html, body {
+	height: 100%;
+	margin: 0; padding: 0;
+}
+body {
+	display : table;
+	width: 100%;
+}
+footer {
+	display : table-row;
+   width: 100%; /* à titre d'exemple */
+}
+
+
+footer {
+   bottom: 0;
+}
 #myFooter {
     background-color: #3a3f46;
     color: white;
+
 }
 
 #myFooter .row {
@@ -124,11 +141,7 @@ body{
    flex: 0 0 auto;
    -webkit-flex: 0 0 auto;
 }
-.content-post{
-     height: 250px;
-     overflow: hidden;
-  }
-
+ 
 .return-icon {
   font-size: 2em;
   color: #293462;

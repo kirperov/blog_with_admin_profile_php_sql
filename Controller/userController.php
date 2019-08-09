@@ -28,9 +28,8 @@ class UserController extends Controller {
 
   public function getUser($login, $password) {
     $allUsersList = $this->userManager->listUsers();
-    $user = $this->userManager->user($login, $password);
-    //require('View/frontend/viewPageAdmin.php');
-    require('view/frontend/viewPageConnexion.php');
+    $user = $this->userManager->user(mysqli_real_escape_string(stripslashes($login)), mysqli_real_escape_string(htmlspecialchars($password)));
+     require('view/frontend/viewPageConnexion.php');
   }
 
   //Redirige vers la deconnexion
@@ -42,14 +41,14 @@ class UserController extends Controller {
 
    //Redirige vers la modification de user
    public function editPageUser() {
-      require('view/frontend/editUserView.php');
+     require('view/frontend/editUserView.php');
     }
 
     //Envoi les information modifiés vers le serveur
     public function editUser($login, $name, $firstName, $email, $password, $userId) {
-      $inserUser = $this->userManager->updateUser($login, $name, $firstName, $email, $password, $userId);
+      $insertUser = $this->userManager->updateUser($login, $name, $firstName, $email, $password, $userId);
 
-      if ($inserUser === false) {
+      if ($insertUser === false) {
         // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
         throw new Exception('Impossible d\'ajouter le post !');
       }
@@ -67,6 +66,4 @@ class UserController extends Controller {
         $allUsersList = $this->userManager->listUsers();
         require('view/frontend/viewPageGestionUser.php');
       }
-
-
 }

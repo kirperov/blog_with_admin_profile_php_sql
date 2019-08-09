@@ -6,7 +6,7 @@
    <h1 class="text-center m-5 text-white"><?= $title; ?></h1>
  </div>
       <div class="col-md-12 mx-auto" data-aos="fade-up">
-        <p><a href="index.php?action=listAllPosts"> <span class="return-icon" title="Rtourer à la page de tous les chapitres"><i id="btn-return" class="fas fa-undo animated"></i></span></a></p>
+        <a href="index.php?action=listAllPosts"> <span class="return-icon" title="Rtourer à la page de tous les chapitres"><i id="btn-return" class="fas fa-undo animated"></i></span></a>
           <div class="news card m-12">
               <div class="card-body">
                      <span class="font-weight-lighter font-italic">Publié le  <?= $post['creation_date_fr']; ?></span>
@@ -20,7 +20,7 @@
           <h2 class="mt-5">Commentaires</h2>
           <hr>
 
-<section class="p-3" style="background-color: #e3e3e3;">
+<section class="p-3 rounded" style="background-color: #e3e3e3;">
 
 <?php
 // Boucle pour les commentaires
