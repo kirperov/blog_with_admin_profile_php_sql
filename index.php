@@ -13,9 +13,25 @@ $postsObject = new \Kirill\blog_ecrivain\Controller\PostController();
 $commentsObject = new \Kirill\blog_ecrivain\Controller\CommentsController();
 $userObject = new \Kirill\blog_ecrivain\Controller\UserController();
 
+// Tableau avec les actions existantes
+$actions = array("listPosts", "listAllPosts", "editPagePosts","postEdit", "editPost", "post", "pageWriteChapiter", "writePost", "postDelete","addComment", "alertedcomments", "alertcomment", "commentEdit", "editComment", "commentDelete", "editPageUser", "editUser", "connexion", "connect", "logout", "adminSpace", "pageEditUser");
+
+$cookie_name  = "tiket_secure";
+//Génetation aléatoire et hash
+$tiket_secure = session_id().microtime().rand(0,9999999999);
+$tiket_secure = hash('sha512', $tiket_secure);
+// On enregistre des deux cotés
+setcookie($cookie_name, $tiket_secure, time() + (60 * 20)); // Expire au bout de 20 min
+$_SESSION['tiket_secure'] = $tiket_secure;
+
 // je teste si les variables passées dans les liens avec GET correspondent si elles correspondent j'applelle les bonnes méthodes
 try {
-    if (isset($_GET['action'])) {
+    if (isset($_GET['action']) && in_array($_GET['action'], $actions) && isset($_COOKIE['tiket_secure']) == isset($_SESSION['tiket_secure'])) {
+      // C'est reparti pour un tour
+      $tiket_secure = session_id().microtime().rand(0,9999999999);
+      $tiket_secure = hash('sha512', $tiket_secure);
+      $_COOKIE['tiket_secure'] = $tiket_secure;
+      $_SESSION['tiket_secure'] = $tiket_secure;
       // J'apelle la méthode du controller qui renvoie les 5 dérnièrs billets
         if ($_GET['action'] == 'listPosts') {
           $postsObject->listPosts();
@@ -71,7 +87,7 @@ try {
               }
         // J'apelle la méthode du controller qui renvoie un billet en foction de son ID
         elseif ($_GET['action'] == 'post') {
-          if (isset($_GET['postId']) && isset($_GET['postId']) > 0) {
+          if (!empty($_GET['postId']) && !empty($_GET['postId']) > 0) {
             $postsObject->post($_GET['postId']);
           }
           else {
@@ -146,8 +162,16 @@ try {
 
     // Redirection vers la page alert commentaire
     elseif($_GET['action'] == "alertedcomments") {
-      $commentsObject->getPageAlert();
-    }
+      if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
+        if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
+          $commentsObject->getPageAlert();
+        }
+  }
+  else {
+    $userObject->getPageError();
+  }
+}
+
     // Signale le commentaire
     elseif($_GET['action'] == "alertcomment") {
       if (isset($_GET['postId']) && isset($_GET['commentId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
@@ -197,7 +221,7 @@ else {
 }
 
 //Renvoie vers la suppression du commentaire signalé
-else if($_GET['action'] == "commentDelete") {
+  else if($_GET['action'] == "commentDelete") {
   if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
   if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
     if(isset($_GET['commentId']) && isset($_GET['postId']) && $_GET['commentId'] > 0 && $_GET['postId'] > 0) {
@@ -285,12 +309,22 @@ else {
 
       }
     } elseif($_GET['action'] == "pageEditUser") {
-      $userObject->getPageGestionUserEdit();
+      if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword'])) {
+        if(!empty($_SESSION['goodLogin']) && !empty($_SESSION['goodLogin'])) {
+          $userObject->getPageGestionUserEdit();
+        }
+      } else {
+        $userObject->getPageConnexion();
+      }
     }
   }  else {
     // Si pas d'actions renvoie vers la page HOME
     $postsObject->listPosts();
-  }
+    // On détruit la session
+  	$_SESSION = array();
+  	session_destroy();
+    echo "error";
+   }
 }
 
   catch(Exception $e) { // S'il y a eu une erreur, alors...

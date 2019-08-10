@@ -23,6 +23,7 @@
 <section class="p-3 rounded" style="background-color: #e3e3e3;">
 
 <?php
+
 // Boucle pour les commentaires
 while ($comment = $comments->fetch())
 {

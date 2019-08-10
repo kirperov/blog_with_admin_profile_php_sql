@@ -4,6 +4,7 @@
 <div style="background-color: #216583; height: 200px;">
     <h1 class="text-center m-5 text-white"> Tous les Chapitres </h1>
   </div>
+ 
         <?php
         while ($dbAllPosts = $allPosts->fetch())
         {

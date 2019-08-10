@@ -15,7 +15,7 @@
          <textarea class="tinymce"  name="inputContent" cols="50" rows="15">Ercivez votre chapitre ...</textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-info">Valider</button>
     </form>
    </div>
 

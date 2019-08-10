@@ -28,7 +28,7 @@ class UserController extends Controller {
 
   public function getUser($login, $password) {
     $allUsersList = $this->userManager->listUsers();
-    $user = $this->userManager->user(mysqli_real_escape_string(stripslashes($login)), mysqli_real_escape_string(htmlspecialchars($password)));
+    $user = $this->userManager->user(stripslashes($login),stripslashes($password));
      require('view/frontend/viewPageConnexion.php');
   }
 

@@ -23,6 +23,7 @@
             while ($dbAllUsersList = $allUsersList->fetch())
             {
               if(isset($_POST['password']) && isset($_POST['login']) && !empty($_POST['password']) && !empty($_POST['login'])) {
+                    sleep(1); // Une pause de 1 sec
                 $isPasswordCorrect = password_verify($_POST['password'], $dbAllUsersList['password']);
                 if($isPasswordCorrect && $_POST['login'] == $dbAllUsersList['login']) {
                     $passwordOk = true;

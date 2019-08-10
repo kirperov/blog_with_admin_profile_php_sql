@@ -52,14 +52,21 @@ public function changeComment($commentId, $postId, $author, $comment) {
       }
       //Supprimer le commentaire
       public function removeComment($commentId, $postId) {
-             $commentDelete = $this->commentManager->deleteComment($commentId, $postId);
-            if ($commentDelete === false) {
+        if(isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
+          // On vérifie que les deux correspondent
+          if ($_SESSION['token'] == $_POST['token']) {
+              $commentDelete = $this->commentManager->deleteComment($commentId, $postId);
+            }
+
+        if ($commentDelete === false) {
               // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
               throw new Exception('Impossible de supprimer le commentaire !');
             }
             else {
               header('Location: index.php?action=post&postId=' . $postId);
               }
+          }
+
             }
 }
 ?>
