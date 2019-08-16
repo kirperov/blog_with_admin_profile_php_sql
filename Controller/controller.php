@@ -1,8 +1,8 @@
 <?php
-namespace Kirill\blog_ecrivain\Controller; 
+namespace Kirill\blog_ecrivain\Controller;
 
 class Controller {
-
+  
 }
 
 ?>
