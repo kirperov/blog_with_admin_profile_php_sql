@@ -21,10 +21,11 @@ class PostController extends Controller {
       require('View/frontend/homeView.php');
   }
   // Liste tous les posts
-  public function listAllPosts() {
-      $allPosts = $this->postsManager->getAllPosts(); // Appel d'une fonction de cet objet
-      require('View/frontend/allPostsView.php');
-  }
+  // public function listAllPosts() {
+  //     $allPosts = $this->postsManager->getAllPosts(); // Appel d'une fonction de cet objet
+  //     $countPost = $this->postsManager->getPostCount();
+  //     require('View/frontend/allPostsView.php');
+  // }
   // Page qui liste les posts à éditer
   public function editPostsPage() {
        $allPosts = $this->postsManager->getAllPosts(); // Appel d'une fonction de cet objet
@@ -40,6 +41,15 @@ class PostController extends Controller {
   //Redirige vers la page pour écrire un chapitre
   public function getPageWritePost() {
     require('view/frontend/writePostView.php');
+  }
+
+  public function getPostPagination($page) {
+    $allPosts =$this->postsManager->getAllManagePosts($page);
+    // $allPosts = $this->postsManager->getAllPosts(); // Appel d'une fonction de cet objet
+    $countPost = $this->postsManager->getPostCount();
+
+    require('view/frontend/viewPagination.php');
+
   }
 
   // Page pour écrire un chapitre

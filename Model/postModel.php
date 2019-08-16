@@ -16,13 +16,38 @@ class PostManager extends Model  {
       return $req;
   }
 
-// Méthode qui récupère tous les posts
+//Méthode qui récupère tous les posts
   public function getAllPosts()
   {
       $db = $this->dbConnect();
-      $req = $db->query('SELECT id, title,  SUBSTRING(content, 50, 1000) AS extractContent, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr, status FROM posts ORDER BY date_post');
-
+      $cPageChange = $_SESSION['cPage'];
+      $perPageChange = $_SESSION['perPage'];
+      $req = $db->query('SELECT id, title, SUBSTRING(content, 50, 1000) AS extractContent, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr, status FROM posts ORDER BY date_post DESC');
       return $req;
+  }
+
+  // Méthode qui récupère tous les posts
+    public function getAllManagePosts($page)
+    {
+      $db = $this->dbConnect();
+      if(isset($_SESSION['perPage']) && isset($_SESSION['cPage'])) {
+        $cPage = $_SESSION['cPage'];
+        $perPage = $_SESSION['perPage'];
+
+      } else {
+        $_SESSION['perPage'] = 2;
+        $_SESSION['cPage'] = 1;
+      }
+      $req = $db->query('SELECT id, title, SUBSTRING(content, 50, 1000) AS extractContent, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr, status FROM posts ORDER BY date_post  LIMIT '.(($_SESSION['cPage']  -1) * $_SESSION['perPage']).' ,' .$_SESSION['perPage']);
+      return $req;
+    }
+
+
+  public function getPostCount() {
+    $db = $this->dbConnect();
+    $req = $db->query("SELECT COUNT(id) as nbArt FROM posts");
+    $data = $req->fetch();
+    return $data;
   }
 
 // Méthode qui récupère un poste précis grâce au l'id passée en paramètre à partir du controleur(qui réqupère l'id avec GET dans l'url)

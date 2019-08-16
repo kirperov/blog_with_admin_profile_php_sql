@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="vendor/animate.css/animate.min.css">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+        <script src="https://www.google.com/recapcha/api.js"> </script>
 
 
     </head>

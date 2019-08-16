@@ -27,8 +27,16 @@
                 $isPasswordCorrect = password_verify($_POST['password'], $dbAllUsersList['password']);
                 if($isPasswordCorrect && $_POST['login'] == $dbAllUsersList['login']) {
                     $passwordOk = true;
-                    $_SESSION['goodLogin'] = htmlspecialchars($_POST['login']);
-                    $_SESSION['goodPassword'] = htmlspecialchars($dbAllUsersList['password']);
+                    $_SESSION['goodLogin'] = $_POST['login'];
+                    $cookie_name  = "ticket";
+                    //Génetation aléatoire et hash
+                    $ticket = session_id().microtime().rand(0,9999999999);
+                    $ticket = hash('sha512', $ticket);
+                    // On enregistre des deux cotés
+                    setcookie($cookie_name, $ticket , time() + (60 * 20)); // Expire au bout de 20 min
+                    $_SESSION['ticket'] = $ticket;
+                    // $_SESSION['goodLogin'] = htmlspecialchars($_POST['login']);
+                    // $_SESSION['goodPassword'] = htmlspecialchars($dbAllUsersList['password']);
                     header("Location: index.php?action=adminSpace");
                 }
                 if(!$isPasswordCorrect && $_POST['login'] != $dbAllUsersList['login']) {

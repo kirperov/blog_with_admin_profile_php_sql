@@ -47,14 +47,13 @@ class UserController extends Controller {
     //Envoi les information modifiés vers le serveur
     public function editUser($login, $name, $firstName, $email, $password, $userId) {
       $insertUser = $this->userManager->updateUser($login, $name, $firstName, $email, $password, $userId);
-
       if ($insertUser === false) {
         // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
-        throw new Exception('Impossible d\'ajouter le post !');
+        throw new Exception('Action impossible!');
       }
       else {
-        echo $login, $name, $firstName, $email, $password, $userId;
-        // header('Location: index.php?action=adminSpace');
+        // echo $login, $name, $firstName, $email, $password, $userId;
+        header('Location: index.php?action=pageEditUser');
         }
       }
       //Renvoi ver la page d'erreur

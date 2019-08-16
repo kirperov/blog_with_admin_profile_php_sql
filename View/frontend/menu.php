@@ -10,7 +10,7 @@
         <a class="nav-link text-white" href="index.php">Accueil <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="index.php?action=listAllPosts">Tous les chapitres</a>
+        <a class="nav-link text-white" href="index.php?action=pagination&amp;page=1">Tous les chapitres</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#"></a>
@@ -27,7 +27,7 @@
         <div  class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="index.php?action=connexion">Se connecter</a>
         <?php
-        if(isset($_SESSION['goodLogin']) && isset($_SESSION['goodPassword']))
+        if(isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket'])
         {
         ?>
         <a class="dropdown-item" href="index.php?action=logout">Se déconnecter</a>

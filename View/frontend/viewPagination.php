@@ -7,20 +7,37 @@
 <div class="container-fluide">
 <?php
  // print_r($countPost);
- $perPage = 2;
- $cPage = 1;
-$_SESSION['perPage'] = $perPage;
-$_SESSION['cPage'] = $cPage;
-
- $nbArt = $countPost['nbArt'];
- $nbPage = ceil($nbArt/$perPage);
- $_SESSION['nbPage'] = $nbPage;
- echo $nbPage;
-$_SESSION['nbArt'] = $nbArt;
-$_SESSION['nbArt'];
 
 
 ?>
+      <div class="col-md-12 mt-3"  data-aos="">
+        <nav class="col-md-1 col-xs-12 col-sm-12 mx-auto" aria-label="Page navigation example">
+            <ul class="pagination">
+
+      <?php
+
+      $nbArt = $countPost['nbArt'];
+      $nbPage = ceil($nbArt/$_SESSION['perPage']);
+      $_SESSION['nbPage'] = $nbPage;
+      $_SESSION['nbArt'] = $nbArt;
+      // $_SESSION['nbArt'];
+
+      if(isset($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <=  $_SESSION['nbPage']) {
+        $_SESSION['cPage'] = $_GET['page'];
+        $_SESSION['cPage'] = $_SESSION['cPage'];
+      } else {
+        $_SESSION['cPage'] = 1;
+        $_SESSION['cPage'] = $_SESSION['cPage'];
+      }
+      for($i=1; $i<=$nbPage;$i++) {
+           echo '<li class="page-item"><a class="page-link" href="index.php?action=pagination'. '&amp;' . 'page' . '=' . $i .'">' . $i . '</a></li>';
+      }
+
+               ?>
+            </ul>
+          </nav>
+        </div>
+        </div>
         <?php
         while ($dbAllPosts = $allPosts->fetch())
         {
@@ -43,38 +60,5 @@ $_SESSION['nbArt'];
         }
         $allPosts->closeCursor();
         ?>
-        <div class="col-md-12"  data-aos="">
-        <nav class="col-md-2 col-xs-12 col-sm-12 mx-auto" aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <?php
-      for($i=1; $i<=$nbPage;$i++) {
-        $page=$i;
-           echo '<li class="page-item"><a class="page-link" href="index.php?action=pagination'. '&amp;' . 'page' . '=' . $page .'">' . $i . '</a></li>';
-
-      }
-      if(isset($_GET['page'])) {
-        $cPage = $_GET['page'];
-        $_SESSION['cPage'] = $cPage;
-        echo $cPage;
-      } else {
-        $cPage = 1;
-        $_SESSION['cPage'] = $cPage;
-      }
-               ?>
-
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        </div>
         <?php $content = ob_get_clean(); ?>
         <?php require('View/frontend/template.php'); ?>
