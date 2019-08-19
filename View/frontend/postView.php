@@ -40,7 +40,7 @@ while ($comment = $comments->fetch()) {
                </span>
                 <button type="submit" class="btn float-right" name="alertTrue"  value="true">
                     <span class="alert-comment" title="Signaler le commentaire">
-                        <i class="far fa-bell animated infinite tada"></i>
+                        <i id="bell" class="far fa-bell animated infinite tada"></i>
                         <span></button>
                     </form>
                     <p class="p-3"> <?php echo strip_tags($comment['comment']); ?> </p>

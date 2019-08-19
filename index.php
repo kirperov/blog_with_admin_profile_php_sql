@@ -43,6 +43,10 @@ try {
         if ($_GET['action'] == 'listPosts') {
             $postsObject->listPosts();
         }
+        // Tous les chapitres
+        elseif ($_GET['action'] == "pagination") {
+            $postsObject->getPostPagination();
+        }
         // J'apelle la méthode du controller qui renvoie tous les billets
         else if ($_GET['action'] == 'editPagePosts') {
             if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
@@ -68,7 +72,7 @@ try {
         // Gère l'envoi du chapitre édité via formulaire
             elseif ($_GET['action'] == 'editPost') {
             if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
-                if (!empty($_POST['inputTitleEdit']) && !empty($_POST['inputContentEdit']) && isset($_GET['postId']) && isset($_GET['postId']) > 0) {
+                if (isset($_POST['inputTitleEdit']) && isset($_POST['inputContentEdit']) && !empty($_POST['inputTitleEdit']) && !empty($_POST['inputContentEdit']) && isset($_GET['postId']) && isset($_GET['postId']) > 0) {
                     $postsObject->editPost($_POST['inputTitleEdit'], $_POST['inputContentEdit'], $_GET['postId']);
                 } else {
                     $urlRedirect = "Location:index.php?action=postEdit&postId=";
@@ -198,7 +202,7 @@ try {
             }
         } else if ($_GET['action'] == "editPageUser") {
             if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
-                $userObject->editPageUser();
+                $userObject->editPageUser($_GET['userId']);
             } else {
                 $userObject->getPageError();
                 session_destroy();
@@ -246,26 +250,28 @@ try {
                 $userObject->getPageConnexion();
                 session_destroy();
             }
-        } elseif ($_GET['action'] == "pageEditUser") {
+        }
+          //Page pour gérer les utilisateurs
+         elseif ($_GET['action'] == "pageEditUser") {
             if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
                 $userObject->getPageGestionUserEdit();
             } else {
-                $userObject->getPageConnexion();
                 session_destroy();
             }
-        } elseif($_GET['action'] == "deleteUser") {
+        }
+        // Supprimer l'utilisateur
+        elseif($_GET['action'] == "deleteUser") {
           if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
                 $userObject->deleteUser($_GET["userId"]);
           } else {
               session_destroy();
+              $postsObject->listPosts();
+
           }
-        } elseif ($_GET['action'] == "pagination") {
-            $postsObject->getPostPagination();
         }
     } else {
         // Si pas d'actions renvoie vers la page HOME
         $postsObject->listPosts();
-        // $_SESSION = array();
     }
 }
 catch (Exception $e) { // S'il y a eu une erreur, alors...

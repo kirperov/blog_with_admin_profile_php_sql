@@ -131,6 +131,10 @@ body{
     height: 100%;
 }
 
+#bell {
+  animation-duration: 5s;
+}
+
 #myFooter{
    flex: 0 0 auto;
    -webkit-flex: 0 0 auto;
@@ -171,7 +175,7 @@ tr {
 =======================*/
 
 
- 
+
 .page_404  img{
    width:100%;
  }

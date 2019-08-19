@@ -33,6 +33,23 @@ class PostManager extends Model
         $req = $db->query('SELECT id, title, SUBSTRING(content, 50, 1000) AS extractContent, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr, status FROM posts ORDER BY date_post  LIMIT ' . (($cPage - 1) * $perPage) . ' ,' . $perPage);
         return $req;
     }
+
+    // Méthode qui récupère tous les posts pour modifier
+    public function getAllManagePostsUpdate()
+    {
+        $db = $this->dbConnect();
+        if (isset($_SESSION['perPageUpdate']) && isset($_SESSION['perPageUpdate'])) {
+            $cPage   = $_GET['pageUpdate'];
+            $perPage = $_SESSION['perPageUpdate'];
+        } else {
+            $cPage   = 1;
+            $perPage = 4;
+        }
+        $req = $db->query('SELECT id, title, SUBSTRING(content, 50, 1000) AS extractContent, DATE_FORMAT(date_post, \'%d/%m/%Y à %Hh%i\') AS creation_date_fr, status FROM posts ORDER BY date_post  LIMIT ' . (($cPage - 1) * $perPage) . ' ,' . $perPage);
+        return $req;
+    }
+
+    // Recupere le nompbre de posts
     public function getPostCount()
     {
         $db   = $this->dbConnect();

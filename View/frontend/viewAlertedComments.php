@@ -6,7 +6,8 @@
 		<a href="index.php?action=adminSpace">
 			<span class="return-icon" title="Rtourer à la page de tous les chapitres"><i id="btn-return" class="fas fa-undo animated mb-3"></i></span>
 		</a>
-		<?php if(!empty($allAlertedComents) && $allAlertedComents != null)
+
+		<?php if(isset($allAlertedComents) && !empty($allAlertedComents))
     {
     ?>
 		<div class="table-responsive">

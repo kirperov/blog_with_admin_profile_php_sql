@@ -17,7 +17,6 @@ class CommentsController extends Controller
     {
         $affectedLines = $this->commentManager->postComment($postId, $author, $comment);
         if ($affectedLines === false) {
-            // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
             throw new Exception('Impossible d\'ajouter le commentaire !');
         } else {
             header('Location: index.php?action=post&postId=' . $postId);
@@ -45,7 +44,6 @@ class CommentsController extends Controller
     {
         $commentUpdate = $this->commentManager->updateComment($commentId, $postId, $author, $comment);
         if ($commentUpdate === false) {
-            // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
             throw new Exception('Impossible de modifier le commentaire !');
         } else {
             header('Location: index.php?action=post&postId=' . $postId);
@@ -60,10 +58,9 @@ class CommentsController extends Controller
                 $commentDelete = $this->commentManager->deleteComment($commentId, $postId);
             }
             if ($commentDelete === false) {
-                // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
                 throw new Exception('Impossible de supprimer le commentaire !');
             } else {
-                header('Location: index.php?action=post&postId=' . $postId);
+                header('Location: index.php?action=alertedcomments');
             }
         }
     }

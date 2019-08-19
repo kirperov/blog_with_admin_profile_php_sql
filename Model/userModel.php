@@ -23,6 +23,14 @@ class UserManager extends Model
         $user = $req->fetch();
         return $user;
     }
+    //Les infos de user par id 
+    public function editUserInfo($userId) {
+      $db  = $this->dbConnect();
+      $req = $db->prepare('SELECT id, name, login, first_name, email, DATE_FORMAT(inscription_date, \'%d/%m/%Y à %Hh%imin%ss\') AS inscription_date_fr, role FROM user WHERE id = ?');
+      $req->execute(array($userId));
+      $user = $req->fetch();
+      return $user;
+    }
     // Request pour mettre à jour le User
     public function updateUser($login, $name, $firstName, $email, $password, $userId)
     {

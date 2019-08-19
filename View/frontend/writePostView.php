@@ -1,7 +1,7 @@
 <?php $title = 'Ecrire un chapitre'; ?>
 
 <?php ob_start(); ?>
-<div class="container col-md-12">
+<div class="container col-md-12" style="margin-top: 8%;">
 	<h1 class="text-center m-5"> Ecrire un chapitre </h1>
 	<div class="col-md-10 mx-auto m-5">
 		<form method="post" action="index.php?action=writePost" data-aos="zoom-in">

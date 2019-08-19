@@ -38,10 +38,12 @@ class UserController extends Controller
         require('view/frontend/viewPageConnexion.php');
     }
     //Redirige vers la modification de user
-    public function editPageUser()
+    public function editPageUser($userId)
     {
+      $editUserInfo = $this->userManager->editUserInfo($userId);
         require('view/frontend/editUserView.php');
     }
+
     //Envoi les information modifiés vers le serveur
     public function editUser($login, $name, $firstName, $email, $password, $userId)
     {
@@ -59,7 +61,7 @@ class UserController extends Controller
       if ($deleteUser === false) {
           throw new Exception('Impossible de supprimer le user !');
       } else {
-          header('Location: index.php?action=pagination&amp;page=1');
+          header('Location: index.php?action=pageEditUser');
       }
     }
     //Renvoi ver la page d'erreur

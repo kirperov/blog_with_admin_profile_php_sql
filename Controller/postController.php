@@ -23,7 +23,9 @@ class PostController extends Controller
     // Page qui liste les posts à éditer
     public function editPostsPage()
     {
-        $allPosts = $this->postsManager->getAllPosts(); // Appel d'une fonction de cet objet
+        $allPosts = $this->postsManager->getAllManagePostsUpdate(); // Appel d'une fonction de cet objet
+        $countPost = $this->postsManager->getPostCount();
+
         require('View/frontend/updatePostView.php');
     }
     //recuprère l'id de post et commentaire associé
@@ -38,10 +40,15 @@ class PostController extends Controller
     {
         require('view/frontend/writePostView.php');
     }
+
+    // Editer user infos
+    public function getUserEdit($userId) {
+      require('view/frontend/editPageUser.php');
+    }
+    // Gestion de la pagination
     public function getPostPagination()
     {
         $allPosts  = $this->postsManager->getAllManagePosts();
-        // $allPosts = $this->postsManager->getAllPosts(); // Appel d'une fonction de cet objet
         $countPost = $this->postsManager->getPostCount();
         require('view/frontend/viewPagination.php');
     }
@@ -53,7 +60,7 @@ class PostController extends Controller
             // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
             throw new Exception('Impossible d\'ajouter le post !');
         } else {
-            header('Location: index.php?action=listAllPosts');
+            header('Location: index.php?action=pagination&page=1');
         }
     }
     // redediction vers le chapitre à éditer
@@ -71,7 +78,7 @@ class PostController extends Controller
             // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
             throw new Exception('Impossible d\'éditer le post !');
         } else {
-            header('Location: index.php?action=listAllPosts');
+            header('Location: index.php?action=post&postId=' .$postId);
         }
     }
     //Supprimer le chapitre
@@ -81,9 +88,9 @@ class PostController extends Controller
         $deletePost = $this->postsManager->deletePost($postId);
         if ($deletePost === false) {
             // Erreur gérée. Elle sera remontée jusqu'au bloc try du routeur !
-            throw new Exception('Impossible d\'éditer le post !');
+            throw new Exception('Impossible de supprimer le post !');
         } else {
-            header('Location: index.php?action=listAllPosts');
+            header('Location: index.php?action=editPagePosts');
         }
     }
 }
