@@ -7,7 +7,7 @@
 		<!-- Formulaire pour editer un commentaire -->
 		<form class="col-md-12" action="index.php?action=editComment&amp;commentId=<?= $commentAlerted['id'] ?>&amp;postId=<?= $commentAlerted['id_post'] ?>" method="post" data-aos="zoom-in">
 			<a href="index.php?action=alertedcomments">
-				<span class="return-icon" title="Rtourer à la page de tous les chapitres"><i id="btn-return" class="fas fa-undo animated"></i></span>
+				<span class="return-icon" title="Rtourner à la page de tous les chapitres"><i id="btn-return" class="fas fa-undo animated"></i></span>
 			</a>
 			<h2 class="mt-4">Commentaire</h2>
 			<div class="form-group">
