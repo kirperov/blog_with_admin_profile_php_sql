@@ -18,7 +18,7 @@ $_SESSION['cPage']   = $cPage;
 $nbArt               = $countPost['nbArt'];
 $nbPage              = ceil($nbArt / $perPage);
 $_SESSION['nbPage']  = $nbPage;
-$_SESSION['nbArt'] = $nbArt;
+$_SESSION['nbArt']   = $nbArt;
 $_SESSION['nbArt'];
 ?>
 

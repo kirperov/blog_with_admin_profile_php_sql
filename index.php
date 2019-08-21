@@ -200,14 +200,18 @@ try {
                 $userObject->getPageError();
                 session_destroy();
             }
-        } else if ($_GET['action'] == "editPageUser") {
+        }
+        // Renvoie vers Edit User
+        else if ($_GET['action'] == "editPageUser") {
             if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
                 $userObject->editPageUser($_GET['userId']);
             } else {
                 $userObject->getPageError();
                 session_destroy();
             }
-        } else if ($_GET['action'] == "editUser") {
+        }
+         // Transmet les infos de user à modifier
+        else if ($_GET['action'] == "editUser") {
             if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
                 if (!empty($_POST['inputLogin']) && !empty($_POST['inputName']) && !empty($_POST['inputFirstName']) && !empty($_POST['inputEmail']) && !empty($_POST['inputPassword']) && isset($_GET['userId']) && $_GET['userId'] > 0) {
                     $pass_hache = password_hash($_POST['inputPassword'], PASSWORD_DEFAULT);
@@ -221,6 +225,17 @@ try {
                 session_destroy();
             }
         }
+        // Supprimer l'utilisateur
+        elseif($_GET['action'] == "deleteUser") {
+          if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
+                $userObject->deleteUser($_GET["userId"]);
+          } else {
+              session_destroy();
+              $postsObject->listPosts();
+
+          }
+        }
+
         //Renvoie vers la page de connexion
         else if ($_GET['action'] == "connexion") {
             $userObject->getPageConnexion();
@@ -258,16 +273,6 @@ try {
             } else {
                 session_destroy();
             }
-        }
-        // Supprimer l'utilisateur
-        elseif($_GET['action'] == "deleteUser") {
-          if (isset($_SESSION['ticket']) && isset($_COOKIE['ticket']) && $_SESSION['ticket'] == $_COOKIE['ticket']) {
-                $userObject->deleteUser($_GET["userId"]);
-          } else {
-              session_destroy();
-              $postsObject->listPosts();
-
-          }
         }
     } else {
         // Si pas d'actions renvoie vers la page HOME

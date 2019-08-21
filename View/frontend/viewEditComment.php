@@ -1,7 +1,7 @@
 <?php $title = "Editer le commentaire" ?>
 <!-- Début pour recupèrer le code HTML dans une variable $content  -->
 <?php ob_start(); ?>
-<div class="container col-md-12 mb-5">
+<div class="container col-md-12 mb-5" style="margin-top:8%;">
 	<h1 class="text-center m-5"><?= $title ?></h1>
 	<div style="background-color: #e3e3e3;" class="row col-md-10 mx-auto p-3 rounded">
 		<!-- Formulaire pour editer un commentaire -->

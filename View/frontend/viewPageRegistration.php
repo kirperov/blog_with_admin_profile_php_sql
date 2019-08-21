@@ -12,39 +12,31 @@ echo $title;
        <form  action="index.php?action=connect" method="post">
          <div class="form-group">
            <label for="exampleInputEmail1">Login</label>
-           <input type="text" class="form-control" id="login" name="login" placeholder="Entrer login" required>
+           <input type="text" class="form-control" id="registrationLogin" name="registrationLogin" placeholder="Entrer login" required>
           </div>
          <div class="form-group">
            <label for="password">Mot de passe</label>
-           <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+           <input type="password" class="form-control" id="registrationPassword" name="registrationPassword" placeholder="Mot de passe" required>
            </div>
 <?php
 $passwordOk    = false;
 $passwordNotOk = false;
 while ($dbAllUsersList = $allUsersList->fetch()) {
-   if (isset($_POST['password']) && isset($_POST['login']) && !empty($_POST['password']) && !empty($_POST['login'])) {
-       sleep(1); // Une pause de 1 sec
-       $isPasswordCorrect = password_verify($_POST['password'], $dbAllUsersList['password']);
+   if (isset($_POST['registrationPassword']) && isset($_POST['login']) && !empty($_POST['registrationPassword']) && !empty($_POST['login'])) {
+        $isPasswordCorrect = password_verify($_POST['password'], $dbAllUsersList['password']);
        if ($isPasswordCorrect && $_POST['login'] == $dbAllUsersList['login']) {
            $passwordOk            = true;
-           $_SESSION['goodLogin'] = $_POST['login'];
-           $cookie_name           = "ticket";
-           //Génetation aléatoire et hash
-           $ticket                = session_id() . microtime() . rand(0, 9999999999);
-           $ticket                = hash('sha512', $ticket);
-           // On enregistre des deux cotés
-           setcookie($cookie_name, $ticket, time() + (60 * 20)); // Expire au bout de 20 min
-           $_SESSION['ticket'] = $ticket;
-           header("Location: index.php?action=adminSpace");
+            echo "User existant";
        }
        if (!$isPasswordCorrect && $_POST['login'] != $dbAllUsersList['login']) {
            $passwordNotOk = true;
+           "vous pouvez vous insscrire!";
        }
    }
 }
 if (!$passwordNotOk) {
 ?>
-                 <div class="alert alert-primary alert-dismissible fade show" role="alert"  data-aos="zoom-in"> <span> Veuillez saisir votre identifiant et mot de passe  </span>
+                 <div class="alert alert-primary alert-dismissible fade show" role="alert"  data-aos="zoom-in"> <span> Veillez rentrer votre login et mot de passe </span>
                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                        </button>
@@ -52,7 +44,7 @@ if (!$passwordNotOk) {
            <?php
 } elseif (!$passwordOk) {
 ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert"  data-aos="zoom-in"> <span>Mauvais login ou mot de passe! </span>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert"  data-aos="zoom-in"> <span>Mauvaus login ou mot de passe! </span>
                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                        <span aria-hidden="true">&times;</span>
                    </button>

@@ -52,17 +52,12 @@ class CommentsController extends Controller
     //Supprimer le commentaire
     public function removeComment($commentId, $postId)
     {
-        if (isset($_SESSION['token']) AND isset($_POST['token']) AND !empty($_SESSION['token']) AND !empty($_POST['token'])) {
-            // On vérifie que les deux correspondent
-            if ($_SESSION['token'] == $_POST['token']) {
-                $commentDelete = $this->commentManager->deleteComment($commentId, $postId);
-            }
-            if ($commentDelete === false) {
-                throw new Exception('Impossible de supprimer le commentaire !');
-            } else {
-                header('Location: index.php?action=alertedcomments');
-            }
-        }
+       $commentDelete = $this->commentManager->deleteComment($commentId, $postId);
+       if ($commentDelete === false) {
+          throw new Exception('Impossible de supprimer le commentaire !');
+       } else {
+            header('Location: index.php?action=alertedcomments');
+      }
     }
 }
 ?>

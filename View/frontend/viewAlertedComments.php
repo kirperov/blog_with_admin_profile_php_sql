@@ -22,19 +22,13 @@
 						<th>Date de post</th>
 					</tr>
 				</thead>
-				<?php  $token = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));  $_SESSION['token'] = $token;  foreach ($allAlertedComents as $alertedComment)  {  ?>
+				<?php
+					  foreach ($allAlertedComents as $alertedComment)  {  ?>
 				<tbody>
 					<tr>
 						<td class="p-5">
-							<form method="post" action="index.php?action=commentDelete&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>">
-								<button class="btn">
-									<a href="index.php?action=commentEdit&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>"><i style="color: #49beb7;" class="fas fa-user-edit fa-2x  "></i></a>
-								</button>
-								<input type="hidden" name="token" id="token" value="<?php echo $token; ?>" />
-								<button class="btn" type="submit">
-									<span><i style="color: #da4302;" class="fas fa-user-minus fa-2x  "></i></span>
-								</button>
-							</form>
+							<a href="index.php?action=commentEdit&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>"><i style="color: #49beb7;" class="fas fa-user-edit fa-2x ml-5" ></i></a>
+							<a href="index.php?action=commentDelete&amp;commentId=<?= $alertedComment['id'] ?>&amp;postId=<?= $alertedComment['id_post'] ?>"><i style="color: #da4302;" class="fas fa-user-minus fa-2x ml-5"></i></a>
 						</td>
 						<td class="p-5"><?= $alertedComment['id']; ?></td>
 						<td class="p-5"><?= $alertedComment['id_post']; ?></td>
