@@ -24,7 +24,7 @@
 
         <!-- Optional JavaScript, bootstrap, fontawersome, animations -->
         <script src="./vendor/tinymce/js/tinymce/tinymce.min.js"></script>
-        <script src="./js/data.js"></script>
+        <script src="./public/js/data.js"></script>
         <script src="https://kit.fontawesome.com/f15b56fd4f.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

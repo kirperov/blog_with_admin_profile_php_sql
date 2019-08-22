@@ -3,9 +3,8 @@ namespace Kirill\blog_ecrivain\Controller;
 // Chargement des classes
 require_once('Model/postModel.php');
 require_once('Model/commentModel.php');
-require_once('Controller/controller.php');
 // Je crée la classe PostController à partir de la classe parent Controller dans le fichier controller.php
-class PostController extends Controller
+class PostController
 {
     private $postsManager;
     private $commentManager;

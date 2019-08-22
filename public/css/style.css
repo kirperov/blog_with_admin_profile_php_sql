@@ -1,18 +1,85 @@
+html, body {
+	height: 100%;
+	margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  height: 100%;
+}
+
+#bell {
+  animation-duration: 5s;
+}
+
+#myFooter{
+   flex: 0 0 auto;
+   -webkit-flex: 0 0 auto;
+}
+
+.return-icon {
+  font-size: 2em;
+  color: #293462;
+}
+
+.alert-comment {
+  font-size: 2em;
+  color: #f95959;
+}
+
+.img-menu-admin {
+  cursor: pointer;
+}
+
+table {
+  background-color: #f8f9fa;
+}
+
+ thead {
+   color: white;
+   background-color: #042f4b;
+  font-size: 20px;
+}
+
+tr {
+  margin: 40px;
+}
+
+
+
+/*======================
+   404 page
+=======================*/
+
+
+
+.page_404  img{
+   width:100%;
+ }
+
+.four_zero_four_bg {
+
+background-image: url(  https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+   height: 400px;
+   background-position: center;
+}
+
+
 .icons_admin_page {
   width: 35%;
 }
 
-html, body {
-	height: 100%;
-	margin: 0; padding: 0;
-}
-body {
-	display : table;
-	width: 100%;
-}
+
+
+/* FOOTER */
+
 footer {
 	display : table-row;
-   width: 100%; /* à titre d'exemple */
+   width: 100%;
 }
 
 
@@ -115,74 +182,4 @@ footer {
     #myFooter .info{
         text-align: center;
     }
-}
-
-
-
-/* CSS used for positioning the footers at the bottom of the page. */
-
-
-
-body{
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    height: 100%;
-}
-
-#bell {
-  animation-duration: 5s;
-}
-
-#myFooter{
-   flex: 0 0 auto;
-   -webkit-flex: 0 0 auto;
-}
-
-.return-icon {
-  font-size: 2em;
-  color: #293462;
-}
-
-.alert-comment {
-  font-size: 2em;
-  color: #f95959;
-}
-
-.img-menu-admin {
-  cursor: pointer;
-}
-
-table {
-  background-color: #f8f9fa;
-}
-
- thead {
-   color: white;
-   background-color: #042f4b;
-  font-size: 20px;
-}
-
-tr {
-  margin: 40px;
-}
-
-
-
-/*======================
-   404 page
-=======================*/
-
-
-
-.page_404  img{
-   width:100%;
- }
-
-.four_zero_four_bg {
-
-background-image: url(  https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
-   height: 400px;
-   background-position: center;
 }

@@ -1,6 +1,4 @@
-<!-- Router  -->
 <?php
-// Je initialise les fichiers des controllers
 session_start();
 require('Controller/postController.php');
 require('Controller/commentController.php');

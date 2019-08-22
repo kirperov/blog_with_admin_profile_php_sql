@@ -20,7 +20,7 @@
 		</form>
 	</div>
 </div>
-<script src="./js/writeChapiter.js"></script>
+<script src="./public/js/writeChapiter.js"></script>
 <?php $content = ob_get_clean(); ?>
 <!-- Init Tiny Drive -->
 <?php require('View/frontend/template.php'); ?>

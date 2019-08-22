@@ -18,10 +18,10 @@ ob_start();
         <?php
         $_SESSION['cPageUpdate']   = 1;
         $_SESSION['perPageUpdate'] = 4;
-        $nbArt               = $countPost['nbArt'];
-        $nbPage              = ceil($nbArt / $_SESSION['perPageUpdate']);
+        $nbArt                     = $countPost['nbArt'];
+        $nbPage                    = ceil($nbArt / $_SESSION['perPageUpdate']);
         $_SESSION['nbPageUpdate']  = $nbPage;
-        $_SESSION['nbArt']   = $nbArt;
+        $_SESSION['nbArt']         = $nbArt;
         if (isset($_GET['pageUpdate']) && $_GET['pageUpdate'] > 0 && $_GET['pageUpdate'] <= $_SESSION['nbPageUpdate']) {
             $_SESSION['cPageUpdate'] = $_GET['pageUpdate'];
         } else {

@@ -2,7 +2,7 @@
 <?php ob_start(); ?>
 <div class="col-md-12 align-items-center mx-auto">
 	<h1 class="text-center m-5"> Erreur #404 </h1>
-	<h2 class="text-center">Désole, la page demandé n'existe pas :( </h2>
+	<h2 class="text-center">Désolée, la page demandée n'existe pas :( </h2>
 	<section class="page_404">
 		<div class="container mx-auto">
 			<div class="row">

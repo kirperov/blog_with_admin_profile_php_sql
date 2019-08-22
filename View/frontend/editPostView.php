@@ -24,6 +24,8 @@
 <?php require('View/frontend/template.php');?>
 <script type="text/javascript">
 	  tinymce.init({
-		mode : "textareas",plugins : "fullpage",selector: ".editPost",
+		mode : "textareas",
+		plugins : "fullpage",
+		selector: ".editPost",
 	});
 </script>

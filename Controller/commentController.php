@@ -3,9 +3,8 @@ namespace Kirill\blog_ecrivain\Controller;
 // Chargement des classes
 require_once('Model/postModel.php');
 require_once('Model/commentModel.php');
-require_once('Controller/controller.php');
 // je crée une classe enfant à partir de Classe parent dans le Controleur
-class CommentsController extends Controller
+class CommentsController
 {
     private $commentManager;
     public function __construct()
@@ -57,7 +56,7 @@ class CommentsController extends Controller
           throw new Exception('Impossible de supprimer le commentaire !');
        } else {
             header('Location: index.php?action=alertedcomments');
-      }
+       }
     }
 }
 ?>
